@@ -31,3 +31,8 @@ The highlight is the **Handshake Protocol (Contact Form)** — a stylized commun
 ## 📡 Contact System (Handshake Protocol)
 
 The contact form uses:
+### Flow:
+1. User enters details  
+2. Clicks **INITIATE UPLINK**  
+3. Data is transmitted via FormSubmit  
+4. Message is delivered directly to email 
