@@ -1163,8 +1163,12 @@
                 INTERFACE_HANDSHAKE
             </h2>
 
-            <form action="mailto:sakthishriram12156@gmail.com" method="POST"
+            <form action="https://formsubmit.co/sakthishriram12156@gmail.com" method="POST"
                 style="display:flex;flex-direction:column;gap:3rem;">
+                <!-- FormSubmit config — no captcha, custom redirect back to page -->
+                <input type="hidden" name="_captcha" value="false"/>
+                <input type="hidden" name="_subject" value="[PORTFOLIO] New INTERFACE_HANDSHAKE Initiated"/>
+                <input type="hidden" name="_template" value="box"/>
                 <!-- Name Field -->
                 <div style="position:relative;">
                     <input class="cli-input" type="text" id="name" name="name" required placeholder=" " autocomplete="off" style="background:transparent;background-color:transparent;"/>
