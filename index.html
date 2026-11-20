@@ -5,1554 +5,818 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SAKTHI SHRIRAM // SYSTEM.AI</title>
 <link rel="icon" type="image/x-icon" href="logo.png">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: {
-            extend: {
-                colors: {
-                    "surface-bright": "#37393a",
-                    "secondary-fixed": "#e2e2e2",
-                    "primary-fixed-dim": "#c7c6c7",
-                    "on-error": "#690005",
-                    "surface-container": "#1e2020",
-                    "on-tertiary-container": "#008b5a",
-                    "surface-container-highest": "#333535",
-                    "surface": "#121414",
-                    "on-background": "#e2e2e2",
-                    "on-surface": "#e2e2e2",
-                    "surface-container-low": "#1a1c1c",
-                    "error-container": "#93000a",
-                    "secondary-container": "#454747",
-                    "surface-tint": "#c7c6c7",
-                    "primary-fixed": "#e3e2e3",
-                    "on-primary": "#303032",
-                    "on-secondary-fixed": "#1a1c1c",
-                    "secondary-fixed-dim": "#c6c6c7",
-                    "outline": "#8f9194",
-                    "inverse-on-surface": "#2f3131",
-                    "surface-container-lowest": "#0c0f0f",
-                    "on-tertiary-fixed-variant": "#005233",
-                    "on-tertiary-fixed": "#002112",
-                    "background": "#08090A",
-                    "surface-container-high": "#282a2b",
-                    "on-tertiary": "#003822",
-                    "tertiary-fixed-dim": "#00e296",
-                    "on-secondary-fixed-variant": "#454747",
-                    "surface-variant": "#333535",
-                    "surface-dim": "#121414",
-                    "on-primary-container": "#79797a",
-                    "error": "#ffb4ab",
-                    "tertiary-container": "#000c05",
-                    "on-primary-fixed-variant": "#464748",
-                    "tertiary-fixed": "#4dffb1",
-                    "on-secondary-container": "#b4b5b5",
-                    "secondary": "#c6c6c7",
-                    "primary": "#c7c6c7",
-                    "on-error-container": "#ffdad6",
-                    "inverse-surface": "#e2e2e2",
-                    "on-surface-variant": "#c5c6c9",
-                    "on-secondary": "#2f3131",
-                    "tertiary": "#00FFAA",
-                    "outline-variant": "rgba(255,255,255,0.06)",
-                    "primary-container": "#08090a",
-                    "inverse-primary": "#5e5e5f",
-                    "on-primary-fixed": "#1b1c1d"
-                },
-                borderRadius: {
-                    "DEFAULT": "0px",
-                    "none": "0px",
-                    "lg": "0px",
-                    "xl": "0px",
-                    "full": "9999px"
-                },
-                spacing: {
-                    "gutter": "0px",
-                    "margin-safe": "4rem",
-                    "grid-unit": "1px",
-                    "cell-padding": "2rem"
-                },
-                fontFamily: {
-                    "display-xl": ["Anybody"],
-                    "label-micro": ["JetBrains Mono"],
-                    "headline-lg": ["Anybody"],
-                    "display-xl-mobile": ["Anybody"],
-                    "mono-data": ["JetBrains Mono"],
-                    "body-md": ["Geist"]
-                },
-                fontSize: {
-                    "display-xl": ["120px", { lineHeight: "110px", letterSpacing: "-0.04em", fontWeight: "900" }],
-                    "label-micro": ["10px", { lineHeight: "12px", letterSpacing: "0.2em", fontWeight: "500" }],
-                    "headline-lg": ["48px", { lineHeight: "52px", letterSpacing: "-0.01em", fontWeight: "800" }],
-                    "display-xl-mobile": ["64px", { lineHeight: "60px", letterSpacing: "-0.02em", fontWeight: "900" }],
-                    "mono-data": ["14px", { lineHeight: "20px", letterSpacing: "0em", fontWeight: "400" }],
-                    "body-md": ["16px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "400" }]
-                }
-            }
-        }
-    }
-</script>
 <style>
-    /* =============================================
-       RESET & BASE — FIX SCROLLING ROOT CAUSE
-       The original code used position:fixed + overflow:hidden on
-       #smooth-wrapper which trapped all content. We use a proper
-       virtual-scroll pattern: html/body are natural flow; body height
-       is set to match content; smooth-wrapper is fixed but content
-       translates. window.scrollY provides correct scroll position.
-    ============================================= */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --bg:#08090A; --bg2:#0c0f0f; --fg:#e2e2e2; --dim:#8f9194; --soft:#c5c6c9;
+  --neon:#00FFAA; --neon2:#00e296; --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.04);
+  --pad:clamp(1.25rem,4.5vw,4rem);
+  --mx:50vw; --my:50vh;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+html{overflow-x:hidden;scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:'Geist',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--neon);color:#000}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit}
+.material-symbols-outlined{font-variation-settings:'FILL' 1;user-select:none}
 
-    html {
-        scroll-behavior: auto; /* Controlled by JS lerp */
-        overflow-x: hidden;
-    }
+/* ---------- ambient layers ---------- */
+.blueprint{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-size:48px 48px;
+  background-image:linear-gradient(to right,rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.025) 1px,transparent 1px);
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 30%,transparent 100%);
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 30%,transparent 100%)}
+.aura{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(600px circle at var(--mx) var(--my),rgba(0,255,170,.075),transparent 60%),
+             radial-gradient(900px circle at 85% 10%,rgba(0,255,170,.035),transparent 60%),
+             radial-gradient(800px circle at 10% 90%,rgba(90,120,255,.04),transparent 60%)}
+.noise{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+.vignette{position:fixed;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+.scanline{position:fixed;left:0;width:100%;height:120px;z-index:5;pointer-events:none;top:-120px;opacity:.12;
+  background:linear-gradient(0deg,rgba(0,255,170,0),rgba(0,255,170,.08) 50%,rgba(0,255,170,0));animation:scan 10s linear infinite}
+@keyframes scan{to{top:100vh}}
+#particle-system{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:0;transition:opacity 1.2s ease-out}
+#particle-system.active{opacity:1}
+#canvas-tesseract-stage{position:fixed;inset:0;z-index:0;pointer-events:none;width:100%;height:100%}
 
-    /* CRITICAL FIX: body must NOT have overflow:hidden */
-    body {
-        background-color: #08090A;
-        color: #e2e2e2;
-        overflow-x: hidden;
-        /* overflow-y: scroll is the natural default — DO NOT set hidden */
-        font-family: 'Geist', sans-serif;
-    }
+/* ---------- progress / cursor ---------- */
+#progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:80;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,transparent,var(--neon));box-shadow:0 0 12px var(--neon)}
 
-    /* Blueprint grid background */
-    .blueprint-grid {
-        background-size: 40px 40px;
-        background-image:
-            linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-    }
+/* ---------- loader ---------- */
+#loader{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;
+  transition:transform 1s cubic-bezier(.77,0,.18,1) .15s}
+#loader.done{transform:translateY(-100%)}
+#loader .bar{width:min(320px,60vw);height:1px;background:rgba(255,255,255,.08);position:relative;overflow:hidden}
+#loader .bar::after{content:'';position:absolute;inset:0;background:var(--neon);box-shadow:0 0 16px var(--neon);transform:translateX(-100%);animation:ld 1.1s cubic-bezier(.7,0,.2,1) forwards}
+@keyframes ld{to{transform:translateX(0)}}
 
-    /* =============================================
-       VIRTUAL SMOOTH SCROLL ARCHITECTURE (CORRECT)
-       - #smooth-wrapper: position:fixed, inset:0, overflow:hidden
-       - #smooth-content: will-change:transform, natural flow
-       - body height set to match content height
-       This is the correct Locomotive/Lenis pattern.
-    ============================================= */
-    #smooth-wrapper {
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        overflow: hidden;
-        z-index: 0;
-    }
-    #smooth-content {
-        width: 100%;
-        will-change: transform;
-        /* Do NOT set height here — content determines it */
-    }
+/* ---------- header / chrome ---------- */
+header.top{position:fixed;top:0;left:0;width:100%;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:0 var(--pad);height:4rem;background:rgba(8,9,10,.55);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+  border-bottom:1px solid var(--line)}
+header.top::after{content:'';position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:.35}
+.brand{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:var(--neon);letter-spacing:.15em;text-transform:uppercase;display:flex;align-items:center;gap:.75rem}
+.brand::before{content:'';width:6px;height:6px;background:var(--neon);box-shadow:0 0 10px var(--neon);animation:pulse 2s infinite}
+#main-nav{display:none;gap:2rem}
+@media (min-width:768px){#main-nav{display:flex}}
+.nav-link{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;font-weight:500;text-transform:uppercase;color:var(--dim);position:relative;padding:.4rem 0;transition:color .3s}
+.nav-link::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--neon);transform:scaleX(0);transform-origin:0 50%;transition:transform .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 8px var(--neon)}
+.nav-link:hover,.nav-link.active{color:var(--neon)}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
+.core{display:flex;align-items:center;gap:.6rem;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--neon);letter-spacing:.15em;text-transform:uppercase}
+.core .material-symbols-outlined{font-size:18px;animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#sidebar-coords{position:fixed;left:0;top:0;height:100%;width:4rem;display:none;align-items:center;justify-content:center;z-index:40;border-right:1px solid var(--line);pointer-events:none}
+#sidebar-coords span{transform:rotate(-90deg);white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);opacity:.4;letter-spacing:.15em}
+@media (min-width:1024px){#sidebar-coords{display:flex}#main-content{margin-left:4rem}}
+#dots{position:fixed;right:1.25rem;top:50%;transform:translateY(-50%);z-index:45;display:none;flex-direction:column;gap:14px}
+@media (min-width:1024px){#dots{display:flex}}
+#dots a{width:7px;height:7px;border:1px solid var(--dim);transition:all .3s;display:block}
+#dots a:hover{border-color:var(--neon)}
+#dots a.active{background:var(--neon);border-color:var(--neon);box-shadow:0 0 10px var(--neon);transform:scale(1.5) rotate(45deg)}
 
-    /* Scanline — must be position:fixed to stay on screen */
-    .scanline {
-        position: fixed;
-        width: 100%;
-        height: 100px;
-        z-index: 5;
-        background: linear-gradient(0deg, rgba(0,255,170,0) 0%, rgba(0,255,170,0.03) 50%, rgba(0,255,170,0) 100%);
-        opacity: 0.1;
-        pointer-events: none;
-        animation: scan 12s linear infinite;
-        top: -100px;
-    }
-    @keyframes scan {
-        from { top: -100px; }
-        to { top: 100vh; }
-    }
+/* ---------- scroll architecture ---------- */
+#smooth-wrapper{position:fixed;inset:0;overflow:hidden;z-index:10}
+#smooth-content{width:100%;will-change:transform}
+#main-content{position:relative;padding-top:4rem}
 
-    /* =============================================
-       PARTICLE CANVAS
-    ============================================= */
-    .particle-canvas {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0;
-        transition: opacity 1s ease-out;
-    }
-    .particle-canvas.active { opacity: 1; }
+/* ---------- sections ---------- */
+section.reveal-section{position:relative;border-bottom:1px solid var(--line)}
+.sec-head{padding:3rem var(--pad);border-bottom:1px solid var(--line);position:relative}
+.sec-head::before,.cell::before{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:linear-gradient(90deg,var(--neon),transparent 30%);opacity:0;transition:opacity 1s .4s}
+.reveal-section.active .sec-head::before{opacity:.5}
+.lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;font-weight:500;text-transform:uppercase;line-height:1.2}
+.neon{color:var(--neon)}.dim{color:var(--dim)}
+.disp{font-family:'Anybody',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.h2{font-family:'Anybody',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(28px,4vw,48px);line-height:1.05}
+.mono{font-family:'JetBrains Mono',monospace}
+.hair{height:1px;background:linear-gradient(90deg,var(--neon),transparent);opacity:.5}
 
-    /* =============================================
-       TYPOGRAPHY — SHARP CORNERS EVERYWHERE (0px)
-       Matches Cyber-Brutalism design spec
-    ============================================= */
-    .rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl {
-        border-radius: 0 !important;
-    }
+.grid-line-draw{opacity:0;transform:scale(.985);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.reveal-section.active .grid-line-draw{opacity:1;transform:scale(1)}
+.bento-assemble{opacity:0;transform:translateY(24px);filter:blur(6px);transition:opacity .8s ease-out,transform .8s cubic-bezier(.16,1,.3,1),filter .8s ease-out}
+.bento-assemble.active{opacity:1;transform:none;filter:none}
+.skill-row{opacity:0;transform:translateX(-14px);transition:opacity .5s ease-out,transform .5s ease-out,background .3s,padding .3s}
+.skill-row.active{opacity:1;transform:none}
+.crypto-text{visibility:hidden}
+.crypto-text.active{visibility:visible}
+.cursor::after{content:'_';animation:blink 1s step-end infinite;color:var(--neon)}
+@keyframes blink{50%{opacity:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-    /* =============================================
-       GLITCH HOVER
-    ============================================= */
-    .glitch-hover:hover {
-        text-shadow: 2px 0 #00FFAA, -2px 0 #ffb4ab;
-    }
+/* ---------- hero ---------- */
+#index{min-height:calc(100vh - 4rem);display:grid;grid-template-columns:1fr;grid-template-rows:auto 1fr}
+.hero-top{padding:clamp(2.5rem,6vw,5rem) var(--pad) 3rem;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+#hero-title{font-family:'Anybody',sans-serif;font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.04em;margin-bottom:2rem}
+#hero-title .t1,#hero-title .t2{display:block;font-size:clamp(48px,10.5vw,150px)}
+#hero-title .t1{background:linear-gradient(180deg,#fff 20%,#9a9c9e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#hero-title .t2{-webkit-text-stroke:1.5px rgba(0,255,170,.85);-webkit-text-fill-color:transparent;text-shadow:0 0 40px rgba(0,255,170,.25);transition:all .4s}
+#hero-title:hover .t2{-webkit-text-fill-color:var(--neon);-webkit-text-stroke-color:var(--neon);text-shadow:0 0 50px rgba(0,255,170,.5)}
+#hero-title .t3{display:block;font-size:clamp(16px,2.6vw,32px);font-weight:800;letter-spacing:.15em;margin-top:1.4rem;color:rgba(226,226,226,.92);
+  padding-left:1.1rem;border-left:2px solid var(--neon)}
+.hero-status{display:flex;align-items:center;gap:.7rem;margin-bottom:1.4rem}
+.hero-status::before{content:'';width:8px;height:8px;background:var(--neon);box-shadow:0 0 12px var(--neon);animation:pulse 1.6s infinite}
+#hero-info-grid{display:grid;grid-template-columns:1fr}
+@media (min-width:1024px){#hero-info-grid{grid-template-columns:7fr 5fr}}
+#hero-left{padding:3rem var(--pad);display:flex;flex-direction:column;justify-content:space-between;border-bottom:1px solid var(--line)}
+@media (min-width:1024px){#hero-left{border-right:1px solid var(--line);border-bottom:none}}
+#hero-right{padding:3rem var(--pad);display:flex;flex-direction:column;justify-content:center}
+.manifesto{font-size:1.05rem;line-height:1.8;color:var(--soft);max-width:38rem}
+.manifesto::first-line{color:var(--fg)}
+.btns{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
 
-    /* =============================================
-       CELL BORDER — 1px BRUTALIST GRID
-    ============================================= */
-    .cell-border { border: 1px solid rgba(255,255,255,0.06); }
+/* ---------- buttons ---------- */
+.btn-primary,.btn-ghost{position:relative;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:1rem 2rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  transition:background .25s,box-shadow .25s,color .25s,border-color .25s,transform .25s}
+.btn-primary{background:#d8d8d9;color:#08090A;font-weight:800;border:1px solid transparent}
+.btn-primary:hover{background:var(--neon);box-shadow:0 0 28px rgba(0,255,170,.5)}
+.btn-primary:active{background:var(--neon2)}
+.btn-ghost{background:transparent;color:var(--fg);font-weight:500;border:1px solid rgba(255,255,255,.18)}
+.btn-ghost:hover{border-color:var(--neon);color:var(--neon);box-shadow:0 0 16px rgba(0,255,170,.2),inset 0 0 20px rgba(0,255,170,.06)}
+.btn-primary::after,.btn-ghost::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .7s}
+.btn-primary:hover::after,.btn-ghost:hover::after{left:140%}
+.btn-primary:focus-visible,.btn-ghost:focus-visible{outline:1px solid var(--neon);outline-offset:3px}
+.submit-arrow{display:inline-block;transition:transform .3s}
+.btn-primary:hover .submit-arrow{transform:translateX(6px)}
 
-    /* =============================================
-       GRID ASSEMBLY ANIMATIONS
-    ============================================= */
-    .grid-line-draw {
-        border-color: rgba(255,255,255,0) !important;
-        transform: scale(0.98);
-        opacity: 0;
-        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-section.active .grid-line-draw {
-        border-color: rgba(255,255,255,0.06) !important;
-        transform: scale(1);
-        opacity: 1;
-    }
+/* ---------- cards / spotlight / tilt ---------- */
+.magnetic-tilt-surface{position:relative;transition:transform .18s cubic-bezier(.2,0,.2,1),border-color .3s,box-shadow .3s,background .3s;will-change:transform}
+.spot::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;z-index:0;
+  background:radial-gradient(420px circle at var(--sx,50%) var(--sy,50%),rgba(0,255,170,.11),transparent 60%)}
+.spot:hover::before{opacity:1}
+.spot>*{position:relative;z-index:1}
+.spot::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;z-index:2;
+  background:
+   linear-gradient(var(--neon),var(--neon)) top left/12px 1px no-repeat,
+   linear-gradient(var(--neon),var(--neon)) top left/1px 12px no-repeat,
+   linear-gradient(var(--neon),var(--neon)) top right/12px 1px no-repeat,
+   linear-gradient(var(--neon),var(--neon)) top right/1px 12px no-repeat,
+   linear-gradient(var(--neon),var(--neon)) bottom left/12px 1px no-repeat,
+   linear-gradient(var(--neon),var(--neon)) bottom left/1px 12px no-repeat,
+   linear-gradient(var(--neon),var(--neon)) bottom right/12px 1px no-repeat,
+   linear-gradient(var(--neon),var(--neon)) bottom right/1px 12px no-repeat}
+.spot:hover::after{opacity:1}
+.magnetic-tilt-surface:hover{border-color:rgba(0,255,170,.4)!important;box-shadow:0 0 30px rgba(0,255,170,.12),0 20px 50px -20px rgba(0,0,0,.8)}
+.panel{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0) 40%),var(--bg2)}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+.tag.hot{color:var(--neon);text-shadow:0 0 10px rgba(0,255,170,.5)}
 
-    .bento-assemble {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        transition-delay: 0.6s;
-    }
-    .bento-assemble.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ---------- skills ---------- */
+#skills-grid{display:grid;grid-template-columns:1fr}
+@media (min-width:768px){#skills-grid{grid-template-columns:repeat(3,1fr)}}
+.skill-col{padding:3rem clamp(1.25rem,3vw,3rem);border-bottom:1px solid var(--line);position:relative}
+@media (min-width:768px){.skill-col{border-bottom:none}.skill-col:not(:last-child){border-right:1px solid var(--line)}}
+.col-title{display:flex;align-items:center;gap:.75rem;margin-bottom:2.5rem}
+.col-title .material-symbols-outlined{color:var(--neon);padding:.5rem;border:1px solid rgba(0,255,170,.3);background:rgba(0,255,170,.05);box-shadow:0 0 18px rgba(0,255,170,.15)}
+.col-title h4{font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase}
+.sub{margin-bottom:2.5rem}
+.sub h5{margin-bottom:1rem}
+.sub ul{display:flex;flex-direction:column;gap:1rem}
+.skill-row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line2);padding-bottom:.6rem;position:relative}
+.skill-row::after{content:'';position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--neon);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 8px var(--neon)}
+.skill-row:hover::after{transform:scaleX(1)}
+.skill-row.active:hover{background:linear-gradient(90deg,rgba(0,255,170,.07),transparent);padding-left:.6rem}
+.skill-row span:first-child{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--fg)}
 
-    .skill-row {
-        opacity: 0;
-        transform: translateX(-10px);
-        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-    }
-    .skill-row.active {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    .skill-row-interactive:hover {
-        background: rgba(0, 255, 170, 0.05);
-        padding-left: 0.5rem;
-        transition: all 0.3s ease;
-    }
+/* ---------- projects ---------- */
+#project-bento{display:grid;grid-template-columns:1fr}
+@media (min-width:768px){
+  #project-bento{grid-template-columns:repeat(4,1fr);grid-template-rows:360px 200px 200px}
+  #project-box-a{grid-column:1/3;grid-row:1/3}
+}
+.pcard{padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;border-bottom:1px solid var(--line);overflow:hidden;background:transparent}
+@media (min-width:768px){.pcard{border-right:1px solid var(--line)}}
+.pcard.sm{padding:2rem;min-height:180px}
+.pcard:hover{background:rgba(26,28,28,.7)}
+.pcard .inner{display:flex;flex-direction:column;height:100%;justify-content:space-between}
+.chip{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;padding:.25rem .75rem;text-transform:uppercase}
+.big-metric{font-family:'Anybody',sans-serif;font-size:2.8rem;font-weight:900;color:var(--neon);text-shadow:0 0 30px rgba(0,255,170,.4);line-height:1}
 
-    /* =============================================
-       MAGNETIC TILT SURFACE
-    ============================================= */
-    .magnetic-tilt-surface {
-        perspective: 1000px;
-        transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1), border-color 0.3s ease;
-    }
-    .magnetic-tilt-surface:hover {
-        border-color: rgba(0, 255, 170, 0.4) !important;
-        box-shadow: 0 0 15px rgba(0, 255, 170, 0.15);
-    }
+/* ---------- benchmarks ---------- */
+#benchmarks{display:grid;grid-template-columns:1fr}
+@media (min-width:1024px){#benchmarks{grid-template-columns:1fr 1fr}}
+#benchmarks-left{padding:3rem var(--pad);border-bottom:1px solid var(--line)}
+@media (min-width:1024px){#benchmarks-left{border-right:1px solid var(--line);border-bottom:none}}
+#benchmarks-right{padding:3rem var(--pad);display:flex;flex-direction:column;gap:3rem}
+.bignum{font-family:'Anybody',sans-serif;font-size:clamp(80px,11vw,150px);font-weight:900;line-height:1;letter-spacing:-.04em;
+  background:linear-gradient(180deg,#fff,#6d6f71);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem;visibility:hidden}
+.bignum.active{visibility:visible}
+.barwrap{width:100%;height:4px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
+.bar-fill{width:0;height:100%;background:linear-gradient(90deg,var(--neon2),var(--neon));box-shadow:0 0 16px var(--neon);transition:width 1.8s cubic-bezier(.16,1,.3,1) .8s;position:relative}
+.bar-fill::after{content:'';position:absolute;right:0;top:-3px;width:2px;height:10px;background:#fff;box-shadow:0 0 10px #fff}
+.reveal-section.active .bar-fill{width:70%}
+.research{border:1px solid rgba(0,255,170,.35);padding:2rem;background:linear-gradient(135deg,rgba(0,255,170,.06),transparent 60%),var(--bg2);margin:3rem 0 2rem;position:relative;box-shadow:0 0 40px -10px rgba(0,255,170,.2)}
+.research .flag{position:absolute;top:-.75rem;left:1.5rem;background:var(--bg);padding:0 .75rem}
+.proj-mini{padding:2rem;margin-top:2rem;border:1px solid var(--line);background:var(--bg2)}
+.proj-mini:first-of-type{margin-top:0}
+.pills{display:flex;gap:.5rem;flex-wrap:wrap}
+.pills span{font-family:'JetBrains Mono',monospace;font-size:10px;padding:.2rem .6rem;text-transform:uppercase;color:var(--dim);background:rgba(255,255,255,.04)}
+.pills span.hot{color:var(--neon);background:#000c05;border:1px solid rgba(0,255,170,.2)}
+.cred{display:flex;align-items:flex-start;gap:1.5rem;padding:1.25rem;border:1px solid var(--line);background:rgba(255,255,255,.01)}
+.credential-badge{flex-shrink:0;width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;font-family:'Anybody',sans-serif;font-weight:900;font-size:1.1rem}
 
-    /* =============================================
-       CRYPTO TEXT TYPING EFFECT
-    ============================================= */
-    .crypto-text {
-        visibility: hidden;
-    }
-    .crypto-text.active {
-        visibility: visible;
-    }
-    .cursor::after {
-        content: '_';
-        animation: blink 1s step-end infinite;
-        color: #00FFAA;
-    }
-    @keyframes blink { 50% { opacity: 0; } }
+/* ---------- contact ---------- */
+#interface{min-height:100vh;padding:4rem var(--pad);display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}
+#interface::before{content:'';position:absolute;left:50%;top:50%;width:min(900px,90vw);height:min(900px,90vw);transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(0,255,170,.07),transparent 65%);pointer-events:none}
+#interface::after{content:'';position:absolute;left:50%;top:50%;width:min(620px,80vw);height:min(620px,80vw);transform:translate(-50%,-50%);
+  border:1px solid rgba(0,255,170,.08);border-radius:50%!important;pointer-events:none;box-shadow:0 0 0 70px rgba(0,255,170,.012),0 0 0 140px rgba(0,255,170,.008);animation:ring 8s ease-in-out infinite}
+@keyframes ring{50%{transform:translate(-50%,-50%) scale(1.06)}}
+.form-wrap{max-width:48rem;width:100%;position:relative;z-index:2}
+.form-box{padding:clamp(1.5rem,4vw,3rem);border:1px solid var(--line);background:rgba(12,15,15,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.cli-input,.cli-textarea{width:100%;background:transparent!important;border:0;border-bottom:1px solid var(--line);color:var(--fg);padding:1rem 0;outline:none;appearance:none;-webkit-appearance:none;box-shadow:none!important;transition:border-color .25s}
+.cli-input{font-family:'Anybody',sans-serif;font-size:1.5rem;font-weight:800}
+.cli-textarea{font-family:'Geist',sans-serif;font-size:1.25rem;resize:none}
+.cli-input:focus,.cli-textarea:focus{border-bottom-color:var(--neon)}
+.cli-input:-webkit-autofill,.cli-input:-webkit-autofill:hover,.cli-input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px #0c0f0f inset!important;-webkit-text-fill-color:#e2e2e2!important;caret-color:#e2e2e2;transition:background-color 999999s 0s!important}
+.cli-input::placeholder,.cli-textarea::placeholder{color:transparent}
+.field{position:relative}
+.field::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--neon);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 10px var(--neon);pointer-events:none}
+.field:focus-within::after{transform:scaleX(1)}
+.cli-label{position:absolute;left:0;top:1rem;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);transition:top .2s,color .2s;pointer-events:none}
+.cli-input:focus+.cli-label,.cli-input:not(:placeholder-shown)+.cli-label,
+.cli-textarea:focus+.cli-label,.cli-textarea:not(:placeholder-shown)+.cli-label{top:-1rem;color:var(--neon)}
+#name-hint{position:absolute;right:0;bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--neon);opacity:0;transition:opacity .3s;animation:pulse 2s infinite;pointer-events:none}
+#name:focus~#name-hint{opacity:1}
+#name:not(:placeholder-shown)~#name-hint{opacity:0}
+#form-submit-row{display:flex;flex-direction:column;gap:1.5rem;padding-top:1rem}
+@media (min-width:768px){#form-submit-row{flex-direction:row;align-items:center;justify-content:space-between}#form-submit-row p{max-width:20rem}}
 
-    /* =============================================
-       SCROLLBAR
-    ============================================= */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #08090A; }
-    ::-webkit-scrollbar-thumb { background: #333535; border-radius: 0; }
-    ::-webkit-scrollbar-thumb:hover { background: #00FFAA; }
+/* ---------- footer ---------- */
+footer.reveal-section{padding:3rem var(--pad);display:flex;flex-direction:column;gap:1.5rem;background:var(--bg2);position:relative;z-index:10;border-top:1px solid var(--line);border-bottom:none}
+footer::before{content:'';position:absolute;left:0;top:-1px;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:.5}
+#footer-inner{display:flex;flex-direction:column;gap:1.5rem}
+@media (min-width:768px){#footer-inner{flex-direction:row;justify-content:space-between;align-items:center}#footer-copy{text-align:right}}
+.footer-link{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;font-weight:500;text-transform:uppercase;color:var(--dim);transition:color .3s,text-shadow .3s}
+.footer-link:hover{color:var(--neon);text-shadow:0 0 12px rgba(0,255,170,.6)}
 
-    /* =============================================
-       BUTTONS — Interactive States (design spec)
-       Primary: white bg, black text → hover: neon cyan bg + glow
-       Ghost: transparent, 1px white border → hover: neon cyan border + glow
-    ============================================= */
-    .btn-primary {
-        background: #c7c6c7;
-        color: #08090A;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        padding: 1rem 2rem;
-        border: 1px solid transparent;
-        border-radius: 0;
-        cursor: pointer;
-        transition: background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .btn-primary:hover {
-        background: #00FFAA;
-        color: #08090A;
-        box-shadow: 0 0 20px rgba(0, 255, 170, 0.4);
-    }
-    .btn-primary:focus-visible {
-        outline: 1px solid #00FFAA;
-        outline-offset: 2px;
-    }
-    .btn-primary:active {
-        background: #00e296;
-        box-shadow: 0 0 8px rgba(0, 255, 170, 0.6);
-    }
-
-    .btn-ghost {
-        background: transparent;
-        color: #e2e2e2;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        padding: 1rem 2rem;
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 0;
-        cursor: pointer;
-        transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .btn-ghost:hover {
-        border-color: #00FFAA;
-        color: #00FFAA;
-        box-shadow: 0 0 12px rgba(0, 255, 170, 0.2);
-    }
-    .btn-ghost:focus-visible {
-        outline: 1px solid #00FFAA;
-        outline-offset: 2px;
-    }
-    .btn-ghost:active {
-        border-color: #00e296;
-        color: #00e296;
-    }
-
-    /* =============================================
-       FORM INPUTS — CLI style
-    ============================================= */
-    .cli-input {
-        width: 100%;
-        background: transparent !important;
-        background-color: transparent !important;
-        border: 0;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-        color: #e2e2e2;
-        font-family: 'Anybody', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 800;
-        padding: 1rem 0;
-        outline: none;
-        appearance: none;
-        -webkit-appearance: none;
-        box-shadow: none !important;
-        transition: border-color 0.25s ease;
-    }
-    .cli-input:focus {
-        border-bottom-color: #00FFAA;
-        background: transparent !important;
-        background-color: transparent !important;
-    }
-    /* Kill browser autofill white/yellow background */
-    .cli-input:-webkit-autofill,
-    .cli-input:-webkit-autofill:hover,
-    .cli-input:-webkit-autofill:focus,
-    .cli-input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 1000px #08090A inset !important;
-        box-shadow: 0 0 0 1000px #08090A inset !important;
-        -webkit-text-fill-color: #e2e2e2 !important;
-        caret-color: #e2e2e2;
-        background-color: transparent !important;
-        transition: background-color 999999s ease-in-out 0s !important;
-    }
-    .cli-input::placeholder { color: transparent; }
-
-    .cli-label {
-        position: absolute;
-        left: 0;
-        top: 1rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: #8f9194;
-        transition: top 0.2s ease, color 0.2s ease;
-        pointer-events: none;
-    }
-    .cli-input:focus + .cli-label,
-    .cli-input:not(:placeholder-shown) + .cli-label {
-        top: -1rem;
-        color: #00FFAA;
-    }
-    /* Textarea variant */
-    .cli-textarea {
-        width: 100%;
-        background: transparent;
-        border: 0;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-        color: #e2e2e2;
-        font-family: 'Geist', sans-serif;
-        font-size: 1.25rem;
-        padding: 1rem 0;
-        outline: none;
-        resize: none;
-        transition: border-color 0.25s ease;
-    }
-    .cli-textarea:focus {
-        border-bottom-color: #00FFAA;
-    }
-    .cli-textarea::placeholder { color: transparent; }
-    .cli-textarea:focus + .cli-label,
-    .cli-textarea:not(:placeholder-shown) + .cli-label {
-        top: -1rem;
-        color: #00FFAA;
-    }
-
-    /* =============================================
-       PROGRESS BAR ANIMATION
-    ============================================= */
-    .bar-fill {
-        width: 0%;
-        height: 100%;
-        background: #00FFAA;
-        transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        transition-delay: 0.8s;
-    }
-    .reveal-section.active .bar-fill { width: 70%; }
-
-    /* =============================================
-       NAV LINK ACTIVE STATE
-    ============================================= */
-    .nav-link {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        font-weight: 500;
-        text-transform: uppercase;
-        color: #8f9194;
-        transition: color 0.3s ease;
-        text-decoration: none;
-    }
-    .nav-link:hover, .nav-link.active { color: #00FFAA; }
-
-    /* =============================================
-       PROJECT CARD HOVER
-    ============================================= */
-    .project-card {
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .project-card:hover {
-        background-color: rgba(26,28,28,1);
-    }
-
-    /* =============================================
-       NEON GLOW UTILITY
-    ============================================= */
-    .neon-glow {
-        box-shadow: 0 0 15px rgba(0, 255, 170, 0.3);
-    }
-
-    /* =============================================
-       FOOTER LINK
-    ============================================= */
-    .footer-link {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        font-weight: 500;
-        text-transform: uppercase;
-        color: #8f9194;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-    .footer-link:hover { color: #00FFAA; }
-
-    /* =============================================
-       RESPONSIVE — Mobile grid collapse with 1px borders intact
-    ============================================= */
-    @media (max-width: 768px) {
-        .hero-title { font-size: 64px !important; line-height: 60px !important; letter-spacing: -0.02em !important; }
-    }
-
-    /* =============================================
-       SUBMIT BUTTON ARROW
-    ============================================= */
-    .submit-arrow { display: inline-block; transition: transform 0.3s ease; }
-    .btn-primary:hover .submit-arrow { transform: translateX(4px); }
-
-    /* =============================================
-       CREDENTIAL BADGE
-    ============================================= */
-    .credential-badge {
-        flex-shrink: 0;
-        width: 3rem;
-        height: 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Anybody', sans-serif;
-        font-weight: 900;
-        font-size: 1.1rem;
-        border-radius: 0;
-    }
-
-    /* =============================================
-       BORDER-OUTLINE-VARIANT UTILITY (Tailwind doesn't generate this from rgba)
-    ============================================= */
-    .border-outline-variant { border-color: rgba(255,255,255,0.06) !important; }
-    .border-b-outline-variant { border-bottom-color: rgba(255,255,255,0.06) !important; }
-
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#333535}::-webkit-scrollbar-thumb:hover{background:var(--neon)}
+@media (prefers-reduced-motion:reduce){.noise,.scanline{animation:none}}
 </style>
 </head>
-<body class="blueprint-grid">
+<body>
 
-<!-- PARTICLE CANVAS -->
-<canvas class="particle-canvas" id="particle-system"></canvas>
+<div id="loader"><div class="bar"></div></div>
+<div id="progress"></div>
 
-<!-- THREE.JS TESSERACT CANVAS (behind everything) -->
-<canvas class="pointer-events-none" id="canvas-tesseract-stage"
-    style="position:fixed;inset:0;z-index:0;"></canvas>
-
-<!-- SCANLINE EFFECT (fixed to viewport) -->
+<div class="blueprint"></div>
+<div class="aura"></div>
+<canvas id="canvas-tesseract-stage"></canvas>
+<canvas id="particle-system"></canvas>
+<div class="vignette"></div>
 <div class="scanline"></div>
+<div class="noise"></div>
 
-<!-- =============================================
-     SMOOTH SCROLL WRAPPER (CORRECT ARCHITECTURE)
-============================================= -->
-<div id="smooth-wrapper">
-<div id="smooth-content">
-
-<!-- =============================================
-     FIXED NAVIGATION HEADER
-============================================= -->
-<header style="position:fixed;top:0;width:100%;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:0 2rem;height:4rem;background:rgba(8,9,10,0.6);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06);">
-    <div style="display:flex;align-items:center;gap:1rem;">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:900;color:#00FFAA;letter-spacing:0.15em;text-transform:uppercase;">
-            SAKTHI SHRIRAM // SYSTEM.AI
-        </span>
-    </div>
-    <nav style="display:none;" id="main-nav" class="md-flex-nav">
-        <a class="nav-link" href="#index">[01] INDEX</a>
-        <a class="nav-link" href="#skills">[02] SKILLS</a>
-        <a class="nav-link" href="#apparatus">[03] APPARATUS</a>
-        <a class="nav-link" href="#benchmarks">[04] BENCHMARKS</a>
-        <a class="nav-link" href="#interface">[05] INTERFACE</a>
-    </nav>
-    <div style="display:flex;align-items:center;gap:0.75rem;">
-        <span class="material-symbols-outlined" style="color:#00FFAA;font-variation-settings:'FILL' 1;font-size:18px;">memory</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#00FFAA;letter-spacing:0.15em;text-transform:uppercase;">Core_OS: v1.0</span>
-    </div>
+<header class="top">
+  <div class="brand">SAKTHI SHRIRAM // SYSTEM.AI</div>
+  <nav id="main-nav">
+    <a class="nav-link" href="#index">[01] INDEX</a>
+    <a class="nav-link" href="#skills">[02] SKILLS</a>
+    <a class="nav-link" href="#apparatus">[03] APPARATUS</a>
+    <a class="nav-link" href="#benchmarks">[04] BENCHMARKS</a>
+    <a class="nav-link" href="#interface">[05] INTERFACE</a>
+  </nav>
+  <div class="core"><span class="material-symbols-outlined">memory</span><span>Core_OS: v1.0</span></div>
 </header>
 
-<!-- NAV (desktop inline via style block since Tailwind md: requires compile pass) -->
-<style>
-    @media (min-width: 768px) {
-        #main-nav { display:flex !important; gap:2rem; }
-    }
-</style>
+<div id="sidebar-coords"><span>LAT_10.8251_LON_78.6946</span></div>
+<div id="dots"><a href="#index"></a><a href="#skills"></a><a href="#apparatus"></a><a href="#benchmarks"></a><a href="#interface"></a></div>
 
-<!-- =============================================
-     LEFT SIDEBAR — COORDINATE LABEL
-============================================= -->
-<div style="position:fixed;left:0;top:0;height:100%;width:4rem;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem 0;z-index:40;border-right:1px solid rgba(255,255,255,0.06);pointer-events:none;" id="sidebar-coords">
-    <span style="transform:rotate(-90deg);white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:10px;color:#8f9194;opacity:0.3;letter-spacing:0.15em;">LAT_10.8251_LON_78.6946</span>
-</div>
-<style>
-    @media (min-width: 1024px) {
-        #sidebar-coords { display: flex !important; }
-        #main-content { margin-left: 4rem; }
-    }
-</style>
+<div id="smooth-wrapper">
+<div id="smooth-content">
+<main id="main-content">
 
-<!-- =============================================
-     MAIN CONTENT
-============================================= -->
-<main id="main-content" style="position:relative;z-index:10;padding-top:4rem;">
+<!-- 01 INDEX -->
+<section id="index" class="reveal-section">
+  <div class="hero-top grid-line-draw">
+    <span class="crypto-text lbl neon hero-status" data-crypto="STATUS: INITIALIZED">STATUS: INITIALIZED</span>
+    <h1 id="hero-title">
+      <span class="crypto-text t1" data-crypto="SAKTHI_">SAKTHI_</span>
+      <span class="crypto-text t2" data-crypto="SHRIRAM //">SHRIRAM //</span>
+      <span class="crypto-text t3" data-crypto="AI &amp; ML | FULL-STACK | DATA SCIENCE">AI &amp; ML | FULL-STACK | DATA SCIENCE</span>
+    </h1>
+  </div>
 
-    <!-- ==========================================
-         SECTION 01: INDEX (HERO)
-    =========================================== -->
-    <section id="index" class="reveal-section"
-        style="min-height:100vh;display:grid;grid-template-columns:1fr;border:1px solid rgba(255,255,255,0.06);border-top:none;border-left:none;position:relative;">
-
-        <!-- Hero Title Row -->
-        <div class="grid-line-draw"
-            style="grid-column:1/-1;padding:3rem 4rem 3rem;border-bottom:1px solid rgba(255,255,255,0.06);overflow:hidden;">
-            <span class="crypto-text" data-crypto="STATUS: INITIALIZED"
-                style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.2em;color:#00FFAA;text-transform:uppercase;display:block;margin-bottom:1rem;">
-                STATUS: INITIALIZED
-            </span>
-            <h1 id="hero-title" class="glitch-hover"
-                style="font-family:'Anybody',sans-serif;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-0.04em;margin-bottom:2rem;">
-                <span class="crypto-text hero-title" data-crypto="SAKTHI_"
-                    style="display:block;font-size:clamp(48px,10vw,120px);">SAKTHI_</span>
-                <span class="crypto-text hero-title" data-crypto="SHRIRAM //"
-                    style="display:block;font-size:clamp(48px,10vw,120px);">SHRIRAM //</span>
-                <span class="crypto-text"
-                    data-crypto="AI &amp; ML | FULL-STACK | DATA SCIENCE"
-                    style="display:block;font-family:'Anybody',sans-serif;font-size:clamp(18px,3vw,32px);font-weight:800;letter-spacing:0.15em;margin-top:1rem;color:rgba(226,226,226,0.9);">
-                    AI &amp; ML | FULL-STACK | DATA SCIENCE
-                </span>
-            </h1>
+  <div id="hero-info-grid">
+    <div id="hero-left" class="grid-line-draw">
+      <div class="bento-assemble">
+        <span class="crypto-text lbl dim" data-crypto="PROFESSIONAL_MANIFESTO" style="display:block;margin-bottom:1.5rem">PROFESSIONAL_MANIFESTO</span>
+        <p class="manifesto">Sakthi Shriram K is an AI Engineer and Full-Stack Architect specialized in constructing resilient neural frameworks and scalable data infrastructures. Bridging the gap between deep learning theoretical models and high-performance production systems.</p>
+      </div>
+      <div class="bento-assemble btns">
+        <button class="btn-primary mag" data-go="#interface">TERMINAL_ACCESS</button>
+        <button class="btn-ghost mag" data-go="#apparatus">VIEW_LOGS</button>
+      </div>
+    </div>
+    <div id="hero-right" class="grid-line-draw">
+      <span class="crypto-text lbl dim" data-crypto="01 // ACADEMIC FOUNDATION" style="display:block;margin-bottom:1.5rem">01 // ACADEMIC FOUNDATION</span>
+      <div class="magnetic-tilt-surface spot panel bento-assemble" style="padding:2rem">
+        <h3 class="crypto-text disp" data-crypto="SRM TRP Engineering College" style="font-size:1.5rem;margin-bottom:.5rem">SRM TRP Engineering College</h3>
+        <p class="mono neon" style="font-size:14px;margin-bottom:2rem;text-transform:uppercase">BACHELOR OF TECHNOLOGY | 2023 - 2027</p>
+        <div style="background:var(--bg);border:1px solid var(--line);padding:1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span class="lbl dim">CURRENT_METRIC</span>
+          <span class="disp" style="font-size:1.75rem;font-weight:900;color:var(--fg)">CGPA: 7.53</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Two Column Info Row -->
-        <div style="display:grid;grid-template-columns:1fr;min-height:50vh;" id="hero-info-grid">
-            <!-- Left: Manifesto + Buttons -->
-            <div class="grid-line-draw"
-                style="padding:3rem 4rem;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:space-between;" id="hero-left">
-                <div class="bento-assemble">
-                    <span class="crypto-text"
-                        data-crypto="PROFESSIONAL_MANIFESTO"
-                        style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;display:block;margin-bottom:1.5rem;">
-                        PROFESSIONAL_MANIFESTO
-                    </span>
-                    <p style="font-family:'Geist',sans-serif;font-size:1rem;line-height:1.75;color:#c5c6c9;max-width:38rem;">
-                        Sakthi Shriram K is an AI Engineer and Full-Stack Architect specialized in constructing resilient neural frameworks and scalable data infrastructures. Bridging the gap between deep learning theoretical models and high-performance production systems.
-                    </p>
-                </div>
-                <div class="bento-assemble" style="margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;">
-                    <button class="btn-primary">TERMINAL_ACCESS</button>
-                    <button class="btn-ghost">VIEW_LOGS</button>
-                </div>
-            </div>
-            <!-- Right: Academic Foundation -->
-            <div class="grid-line-draw"
-                style="padding:3rem 4rem;display:flex;flex-direction:column;justify-content:center;" id="hero-right">
-                <span class="crypto-text"
-                    data-crypto="01 // ACADEMIC FOUNDATION"
-                    style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;display:block;margin-bottom:1.5rem;">
-                    01 // ACADEMIC FOUNDATION
-                </span>
-                <div class="magnetic-tilt-surface bento-assemble"
-                    style="border:1px solid rgba(255,255,255,0.06);padding:2rem;background:#0c0f0f;transition:all 0.5s;border-radius:0;">
-                    <div class="magnetic-inner">
-                        <h3 class="crypto-text"
-                            data-crypto="SRM TRP Engineering College"
-                            style="font-family:'Anybody',sans-serif;font-size:1.5rem;font-weight:800;text-transform:uppercase;margin-bottom:0.5rem;letter-spacing:-0.01em;">
-                            SRM TRP Engineering College
-                        </h3>
-                        <p style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#00FFAA;margin-bottom:2rem;text-transform:uppercase;">
-                            BACHELOR OF TECHNOLOGY | 2023 - 2027
-                        </p>
-                        <div style="background:#08090A;border:1px solid rgba(255,255,255,0.06);padding:1.5rem;display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;">CURRENT_METRIC</span>
-                            <span style="font-family:'Anybody',sans-serif;font-size:1.75rem;font-weight:900;color:#e2e2e2;">CGPA: 7.53</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- 02 SKILLS -->
+<section id="skills" class="reveal-section">
+  <div class="sec-head grid-line-draw" style="display:flex;justify-content:space-between;align-items:flex-end;gap:1rem">
+    <div>
+      <span class="crypto-text lbl neon" data-crypto="MODULE_02" style="display:block;margin-bottom:.5rem">MODULE_02</span>
+      <h2 class="crypto-text h2" data-crypto="TECHNICAL_SKILLS_ENGINE">TECHNICAL_SKILLS_ENGINE</h2>
+    </div>
+    <span class="crypto-text mono dim" data-crypto="LOAD: 100% // OPTIMIZED" style="font-size:14px">LOAD: 100% // OPTIMIZED</span>
+  </div>
+
+  <div id="skills-grid">
+    <div class="skill-col grid-line-draw">
+      <div class="bento-assemble">
+        <div class="col-title"><span class="material-symbols-outlined">psychology</span><h4 class="crypto-text" data-crypto="AI_ML_DATA_SCIENCE">AI_ML_DATA_SCIENCE</h4></div>
+        <div class="sub"><h5 class="lbl dim">Intelligence Architectures</h5>
+          <ul>
+            <li class="skill-row"><span>Deep Learning</span><span class="tag hot">CORE</span></li>
+            <li class="skill-row"><span>Computer Vision</span><span class="tag">VISION</span></li>
+            <li class="skill-row"><span>PyTorch / TensorFlow</span><span class="tag">ENGINES</span></li>
+            <li class="skill-row"><span>XGBoost</span><span class="tag">GRADIENT</span></li>
+          </ul></div>
+        <div class="sub" style="margin-bottom:0"><h5 class="lbl dim">Data Science Systems</h5>
+          <ul>
+            <li class="skill-row"><span>Statistical Analysis</span><span class="tag">MATH</span></li>
+            <li class="skill-row"><span>Data Visualization</span><span class="tag">VIZ</span></li>
+            <li class="skill-row"><span>Pandas / NumPy</span><span class="tag">DATA_OPS</span></li>
+          </ul></div>
+      </div>
+    </div>
+
+    <div class="skill-col grid-line-draw">
+      <div class="bento-assemble">
+        <div class="col-title"><span class="material-symbols-outlined">terminal</span><h4 class="crypto-text" data-crypto="DEVELOPMENT_CORE">DEVELOPMENT_CORE</h4></div>
+        <div class="sub"><h5 class="lbl dim">Logic &amp; Base</h5>
+          <ul>
+            <li class="skill-row"><span>Python / Java / C</span><span class="tag hot">NATIVE</span></li>
+            <li class="skill-row"><span>Data Structures</span><span class="tag">DSA</span></li>
+          </ul></div>
+        <div class="sub" style="margin-bottom:0"><h5 class="lbl dim">Full-Stack</h5>
+          <ul>
+            <li class="skill-row"><span>React / Django</span><span class="tag">ARCH</span></li>
+            <li class="skill-row"><span>FastAPI / REST</span><span class="tag">API</span></li>
+            <li class="skill-row"><span>HTML / CSS / JS</span><span class="tag">UI</span></li>
+          </ul></div>
+      </div>
+    </div>
+
+    <div class="skill-col grid-line-draw">
+      <div class="bento-assemble">
+        <div class="col-title"><span class="material-symbols-outlined">hub</span><h4 class="crypto-text" data-crypto="INFRASTRUCTURE_TOOLS">INFRASTRUCTURE_TOOLS</h4></div>
+        <div class="sub"><h5 class="lbl dim">Persistent Storage</h5>
+          <ul>
+            <li class="skill-row"><span>SQL / MongoDB</span><span class="tag">DBMS</span></li>
+            <li class="skill-row"><span>Database Design</span><span class="tag">SCHEMA</span></li>
+          </ul></div>
+        <div class="sub" style="margin-bottom:0"><h5 class="lbl dim">Workbench</h5>
+          <ul>
+            <li class="skill-row"><span>Hugging Face</span><span class="tag hot">LLM_OPS</span></li>
+            <li class="skill-row"><span>GitHub / Colab</span><span class="tag">VCS</span></li>
+            <li class="skill-row"><span>Blender / Tableau</span><span class="tag">VIZ_3D</span></li>
+          </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 APPARATUS -->
+<section id="apparatus" class="reveal-section">
+  <div class="sec-head grid-line-draw">
+    <span class="crypto-text lbl neon" data-crypto="MODULE_03" style="display:block;margin-bottom:.5rem">MODULE_03</span>
+    <h2 class="crypto-text h2" data-crypto="APPARATUS_PROJECTS">APPARATUS_PROJECTS</h2>
+  </div>
+
+  <div id="project-bento">
+    <div id="project-box-a" class="grid-line-draw magnetic-tilt-surface spot pcard" style="min-height:400px">
+      <div class="bento-assemble inner">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem">
+            <span class="chip neon" style="border:1px solid var(--neon);box-shadow:0 0 14px rgba(0,255,170,.25)">RESEARCH_ALPHA</span>
+            <span class="material-symbols-outlined dim">visibility</span>
+          </div>
+          <h3 class="crypto-text disp" data-crypto="Identity-Aware Face Morphing &amp; Deepfake Detection" style="font-size:clamp(20px,2.5vw,32px);margin-bottom:1rem;line-height:1.1">Identity-Aware Face Morphing &amp; Deepfake Detection</h3>
+          <p style="font-size:.9rem;color:var(--soft);max-width:28rem;line-height:1.6">Utilizing FaceNet512 embeddings and CNN classification to identify structural anomalies in synthetic media.</p>
         </div>
-    </section>
-    <style>
-        @media (min-width: 1024px) {
-            #hero-info-grid { grid-template-columns: 7fr 5fr !important; }
-            #hero-right { border-left: none; }
-        }
-        @media (max-width: 1023px) {
-            #hero-left { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        }
-    </style>
-
-    <!-- ==========================================
-         SECTION 02: SKILLS
-    =========================================== -->
-    <section id="skills" class="reveal-section"
-        style="min-height:100vh;border:1px solid rgba(255,255,255,0.06);border-top:none;border-left:none;position:relative;">
-
-        <!-- Section Header -->
-        <div class="grid-line-draw"
-            style="padding:3rem 4rem;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:flex-end;">
-            <div>
-                <span class="crypto-text" data-crypto="MODULE_02"
-                    style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;text-transform:uppercase;display:block;margin-bottom:0.5rem;">
-                    MODULE_02
-                </span>
-                <h2 class="crypto-text" data-crypto="TECHNICAL_SKILLS_ENGINE"
-                    style="font-family:'Anybody',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;">
-                    TECHNICAL_SKILLS_ENGINE
-                </h2>
-            </div>
-            <span class="crypto-text" data-crypto="LOAD: 100% // OPTIMIZED"
-                style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#8f9194;display:none;" id="skills-load-label">
-                LOAD: 100% // OPTIMIZED
-            </span>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:2rem;gap:1rem;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+            <div class="mono" style="font-size:14px"><span class="neon">&gt;</span> FACENET512_ARCH</div>
+            <div class="mono" style="font-size:14px"><span class="neon">&gt;</span> CNN_RECOGNIZER</div>
+          </div>
+          <div style="text-align:right">
+            <span class="lbl dim" style="display:block;margin-bottom:.5rem">Accuracy_Benchmark</span>
+            <span class="big-metric">83.6%</span>
+          </div>
         </div>
-        <style>
-            @media (min-width: 768px) { #skills-load-label { display:block !important; } }
-        </style>
+      </div>
+    </div>
 
-        <!-- Three Column Skills Grid -->
-        <div style="display:grid;grid-template-columns:1fr;" id="skills-grid">
-
-            <!-- AI/ML Column -->
-            <div class="grid-line-draw"
-                style="padding:3rem;border-right:1px solid rgba(255,255,255,0.06);">
-                <div class="bento-assemble">
-                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2.5rem;">
-                        <span class="material-symbols-outlined" style="color:#00FFAA;font-variation-settings:'FILL' 1;">psychology</span>
-                        <h4 class="crypto-text" data-crypto="AI_ML_DATA_SCIENCE"
-                            style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;font-size:0.9rem;">
-                            AI_ML_DATA_SCIENCE
-                        </h4>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:2.5rem;">
-                        <div>
-                            <h5 style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;margin-bottom:1rem;">Intelligence Architectures</h5>
-                            <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;">
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Deep Learning</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;">CORE</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Computer Vision</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">VISION</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">PyTorch / TensorFlow</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">ENGINES</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">XGBoost</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">GRADIENT</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5 style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;margin-bottom:1rem;">Data Science Systems</h5>
-                            <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;">
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Statistical Analysis</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">MATH</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Data Visualization</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">VIZ</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Pandas / NumPy</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">DATA_OPS</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Development Column -->
-            <div class="grid-line-draw"
-                style="padding:3rem;border-right:1px solid rgba(255,255,255,0.06);">
-                <div class="bento-assemble">
-                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2.5rem;">
-                        <span class="material-symbols-outlined" style="color:#00FFAA;font-variation-settings:'FILL' 1;">terminal</span>
-                        <h4 class="crypto-text" data-crypto="DEVELOPMENT_CORE"
-                            style="font-family:'JetBrains Mono',monospace;font-size:0.9rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;">
-                            DEVELOPMENT_CORE
-                        </h4>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:2.5rem;">
-                        <div>
-                            <h5 style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;margin-bottom:1rem;">Logic &amp; Base</h5>
-                            <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;">
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Python / Java / C</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;">NATIVE</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Data Structures</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">DSA</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5 style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;margin-bottom:1rem;">Full-Stack</h5>
-                            <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;">
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">React / Django</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">ARCH</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">FastAPI / REST</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">API</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">HTML / CSS / JS</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">UI</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Infrastructure Column -->
-            <div class="grid-line-draw" style="padding:3rem;">
-                <div class="bento-assemble">
-                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2.5rem;">
-                        <span class="material-symbols-outlined" style="color:#00FFAA;font-variation-settings:'FILL' 1;">hub</span>
-                        <h4 class="crypto-text" data-crypto="INFRASTRUCTURE_TOOLS"
-                            style="font-family:'JetBrains Mono',monospace;font-size:0.9rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;">
-                            INFRASTRUCTURE_TOOLS
-                        </h4>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:2.5rem;">
-                        <div>
-                            <h5 style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;margin-bottom:1rem;">Persistent Storage</h5>
-                            <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;">
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">SQL / MongoDB</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">DBMS</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Database Design</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">SCHEMA</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5 style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;margin-bottom:1rem;">Workbench</h5>
-                            <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;">
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Hugging Face</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;">LLM_OPS</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">GitHub / Colab</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">VCS</span>
-                                </li>
-                                <li class="skill-row skill-row-interactive" style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.5rem;">
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e2e2e2;">Blender / Tableau</span>
-                                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;">VIZ_3D</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <div class="grid-line-draw magnetic-tilt-surface spot pcard" style="min-height:200px;grid-column:span 2">
+      <div class="bento-assemble inner">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem">
+          <h3 class="crypto-text disp" data-crypto="Smart Handheld Translator" style="font-size:clamp(18px,2vw,28px)">Smart Handheld Translator</h3>
+          <span class="material-symbols-outlined neon">translate</span>
         </div>
-        <style>
-            @media (min-width: 768px) {
-                #skills-grid { grid-template-columns: repeat(3, 1fr) !important; }
-            }
-        </style>
-    </section>
-
-    <!-- ==========================================
-         SECTION 03: APPARATUS (PROJECTS)
-    =========================================== -->
-    <section id="apparatus" class="reveal-section"
-        style="min-height:100vh;border:1px solid rgba(255,255,255,0.06);border-top:none;border-left:none;position:relative;">
-
-        <div class="grid-line-draw"
-            style="padding:3rem 4rem;border-bottom:1px solid rgba(255,255,255,0.06);">
-            <span class="crypto-text" data-crypto="MODULE_03"
-                style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;text-transform:uppercase;display:block;margin-bottom:0.5rem;">
-                MODULE_03
-            </span>
-            <h2 class="crypto-text" data-crypto="APPARATUS_PROJECTS"
-                style="font-family:'Anybody',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;">
-                APPARATUS_PROJECTS
-            </h2>
+        <div style="display:flex;align-items:center;gap:1.5rem;margin-top:1rem">
+          <div style="flex:1">
+            <p style="font-size:.85rem;color:var(--soft);margin-bottom:1rem;line-height:1.5">Real-time speech-to-text with integrated sign NLP for seamless cross-medium communication.</p>
+            <span class="chip neon" style="background:#003822">IEEE EPICS FUNDED</span>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <span class="disp" style="font-size:1.75rem;font-weight:900;color:var(--fg);display:block">$1,350</span>
+            <span class="lbl dim">SECURED</span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Bento Grid -->
-        <div id="project-bento" style="display:grid;grid-template-columns:1fr;auto-rows:auto;">
-
-            <!-- Box A — Large Feature Card -->
-            <div class="grid-line-draw magnetic-tilt-surface project-card"
-                style="border-right:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;min-height:400px;position:relative;overflow:hidden;border-radius:0;" id="project-box-a">
-                <div style="position:absolute;inset:0;background:rgba(0,255,170,0.03);opacity:0;transition:opacity 0.7s;" class="hover-overlay"></div>
-                <div class="bento-assemble" style="display:flex;flex-direction:column;height:100%;justify-content:space-between;position:relative;z-index:1;">
-                    <div>
-                        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;">
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;padding:0.25rem 0.75rem;border:1px solid #00FFAA;text-transform:uppercase;">RESEARCH_ALPHA</span>
-                            <span class="material-symbols-outlined" style="color:#8f9194;">visibility</span>
-                        </div>
-                        <h3 class="crypto-text" data-crypto="Identity-Aware Face Morphing &amp; Deepfake Detection"
-                            style="font-family:'Anybody',sans-serif;font-size:clamp(20px,2.5vw,32px);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:1rem;line-height:1.1;">
-                            Identity-Aware Face Morphing &amp; Deepfake Detection
-                        </h3>
-                        <p style="font-family:'Geist',sans-serif;font-size:0.9rem;color:#c5c6c9;max-width:28rem;line-height:1.6;">
-                            Utilizing FaceNet512 embeddings and CNN classification to identify structural anomalies in synthetic media.
-                        </p>
-                    </div>
-                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:2rem;">
-                        <div style="display:flex;flex-direction:column;gap:0.5rem;">
-                            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;"><span style="color:#00FFAA;">&gt;</span> FACENET512_ARCH</div>
-                            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;"><span style="color:#00FFAA;">&gt;</span> CNN_RECOGNIZER</div>
-                        </div>
-                        <div style="text-align:right;">
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;display:block;margin-bottom:0.25rem;text-transform:uppercase;">Accuracy_Benchmark</span>
-                            <span style="font-family:'Anybody',sans-serif;font-size:2.5rem;font-weight:900;color:#00FFAA;">83.6%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Box B — Smart Handheld Translator -->
-            <div class="grid-line-draw magnetic-tilt-surface project-card"
-                style="border-bottom:1px solid rgba(255,255,255,0.06);padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;min-height:200px;border-radius:0;">
-                <div class="bento-assemble" style="display:flex;flex-direction:column;height:100%;justify-content:space-between;">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                        <h3 class="crypto-text" data-crypto="Smart Handheld Translator"
-                            style="font-family:'Anybody',sans-serif;font-size:clamp(18px,2vw,28px);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;">
-                            Smart Handheld Translator
-                        </h3>
-                        <span class="material-symbols-outlined" style="color:#00FFAA;font-variation-settings:'FILL' 1;">translate</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:1.5rem;margin-top:1rem;">
-                        <div style="flex:1;">
-                            <p style="font-family:'Geist',sans-serif;font-size:0.85rem;color:#c5c6c9;margin-bottom:1rem;line-height:1.5;">
-                                Real-time speech-to-text with integrated sign NLP for seamless cross-medium communication.
-                            </p>
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;background:#003822;padding:0.25rem 0.75rem;text-transform:uppercase;">IEEE EPICS FUNDED</span>
-                        </div>
-                        <div style="text-align:right;flex-shrink:0;">
-                            <span style="font-family:'Anybody',sans-serif;font-size:1.75rem;font-weight:900;color:#e2e2e2;display:block;">$1,350</span>
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;">SECURED</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Box C -->
-            <div class="grid-line-draw magnetic-tilt-surface project-card"
-                style="border-right:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:180px;border-radius:0;">
-                <div class="bento-assemble" style="display:flex;flex-direction:column;height:100%;justify-content:space-between;">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;">SIM_09</span>
-                        <span class="material-symbols-outlined" style="color:#00FFAA;font-variation-settings:'FILL' 1;font-size:18px;">moving</span>
-                    </div>
-                    <h3 class="crypto-text" data-crypto="Migration Readiness Simulation"
-                        style="font-family:'Anybody',sans-serif;font-size:1.2rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin-top:0.75rem;">
-                        Migration Readiness Simulation
-                    </h3>
-                    <p style="font-family:'Geist',sans-serif;font-size:0.82rem;color:#c5c6c9;line-height:1.5;margin-top:0.5rem;">
-                        Predictive engine that scores workforce migration readiness using CatBoost classification, served through a full-stack React + Django platform with real-time risk profiling.
-                    </p>
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1rem;flex-wrap:wrap;gap:0.5rem;">
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00FFAA;">CATBOOST // DJANGO // REACT</div>
-                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;background:rgba(255,255,255,0.04);padding:0.2rem 0.6rem;text-transform:uppercase;">ML_CLASSIFIER</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Box D -->
-            <div class="grid-line-draw magnetic-tilt-surface project-card"
-                style="border-bottom:1px solid rgba(255,255,255,0.06);padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:180px;border-radius:0;">
-                <div class="bento-assemble" style="display:flex;flex-direction:column;height:100%;justify-content:space-between;">
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;">PARSE_04</span>
-                    <h3 class="crypto-text" data-crypto="NLP Resume Parsing System"
-                        style="font-family:'Anybody',sans-serif;font-size:1.2rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;">
-                        NLP Resume Parsing System
-                    </h3>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00FFAA;">SPA_CY // REGEX // FASTAPI</div>
-                </div>
-            </div>
-
+    <div class="grid-line-draw magnetic-tilt-surface spot pcard sm" style="grid-column:span 2">
+      <div class="bento-assemble inner">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <span class="lbl dim">SIM_09</span>
+          <span class="material-symbols-outlined neon" style="font-size:18px">moving</span>
         </div>
-        <style>
-            @media (min-width: 768px) {
-                #project-bento {
-                    grid-template-columns: repeat(4, 1fr) !important;
-                    grid-template-rows: 360px 200px 200px !important;
-                    auto-rows: unset !important;
-                }
-                #project-box-a {
-                    grid-column: 1 / 3 !important;
-                    grid-row: 1 / 3 !important;
-                }
-            }
-            /* Hover overlay */
-            .project-card:hover .hover-overlay { opacity: 1 !important; }
-        </style>
-    </section>
-
-    <!-- ==========================================
-         SECTION 04: BENCHMARKS
-    =========================================== -->
-    <section id="benchmarks" class="reveal-section"
-        style="min-height:100vh;border:1px solid rgba(255,255,255,0.06);border-top:none;border-left:none;display:grid;grid-template-columns:1fr;position:relative;">
-
-        <!-- Left: Stats + Research -->
-        <div class="grid-line-draw"
-            style="padding:3rem 4rem;border-right:1px solid rgba(255,255,255,0.06);" id="benchmarks-left">
-            <div class="bento-assemble">
-                <span class="crypto-text" data-crypto="MODULE_04"
-                    style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;text-transform:uppercase;display:block;margin-bottom:0.5rem;">
-                    MODULE_04
-                </span>
-                <h2 class="crypto-text" data-crypto="SYSTEM_BENCHMARKS"
-                    style="font-family:'Anybody',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:3rem;">
-                    SYSTEM_BENCHMARKS
-                </h2>
-                <!-- Big Number -->
-                <div style="margin-bottom:3rem;">
-                    <h3 class="crypto-text" data-crypto="350+"
-                        style="font-family:'Anybody',sans-serif;font-size:clamp(72px,10vw,140px);font-weight:900;color:#e2e2e2;line-height:1;letter-spacing:-0.04em;margin-bottom:0.5rem;">
-                        350+
-                    </h3>
-                    <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;margin-bottom:1.5rem;">Algorithmic Problems Solved</p>
-                    <div style="width:100%;height:4px;background:rgba(255,255,255,0.06);position:relative;overflow:hidden;">
-                        <div class="bar-fill"></div>
-                    </div>
-                </div>
-                <!-- Research Highlight -->
-                <div style="border:2px solid rgba(0,255,170,0.3);padding:2rem;background:#0c0f0f;margin-bottom:2rem;position:relative;">
-                    <div style="position:absolute;top:-0.75rem;left:1.5rem;background:#08090A;padding:0 0.75rem;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;text-transform:uppercase;">Researcher Phase</div>
-                    <div style="display:flex;align-items:flex-start;gap:1rem;">
-                        <span class="material-symbols-outlined" style="color:#00FFAA;font-size:2rem;margin-top:0.25rem;">science</span>
-                        <div>
-                            <h4 class="crypto-text" data-crypto="Primary Academic Milestone"
-                                style="font-family:'Anybody',sans-serif;font-size:1.2rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:0.5rem;">
-                                Primary Academic Milestone
-                            </h4>
-                            <p style="font-family:'Geist',sans-serif;font-size:0.9rem;color:#e2e2e2;line-height:1.5;">
-                                First-author research contribution: Proposed identity-aware deepfake detection framework
-                                <span style="color:#00FFAA;font-weight:700;font-family:'JetBrains Mono',monospace;">(83.6% accuracy)</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- QR Verification — Freelance: SkillZentra -->
-                <div class="magnetic-tilt-surface" style="border:1px solid rgba(255,255,255,0.06);padding:2rem;background:#0c0f0f;border-radius:0;">
-                    <div class="magnetic-inner">
-                        <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;">
-                            <span class="material-symbols-outlined" style="color:#00FFAA;font-size:2.5rem;">qr_code_2</span>
-                            <div>
-                                <h4 class="crypto-text" data-crypto="QR-Based Certificate Verification"
-                                    style="font-family:'Anybody',sans-serif;font-size:1.1rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;">
-                                    QR-Based Certificate Verification
-                                </h4>
-                                <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8f9194;text-transform:uppercase;letter-spacing:0.1em;">SECURE HASHING // INSTANT AUTH</p>
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;">
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#00FFAA;border:1px solid rgba(0,255,170,0.3);padding:0.2rem 0.6rem;text-transform:uppercase;">FREELANCE</span>
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#c5c6c9;text-transform:uppercase;">CLIENT // SKILLZENTRA</span>
-                        </div>
-                        <p style="font-family:'Geist',sans-serif;font-size:0.83rem;color:#c5c6c9;line-height:1.55;margin-bottom:1.5rem;">
-                            Engineered a tamper-proof certificate issuance and verification platform for SkillZentra. Each certificate embeds a unique QR code backed by secure hashing — any verifier can authenticate credentials instantly via scan, eliminating forgery.
-                        </p>
-                        <button class="btn-ghost" style="width:100%;justify-content:center;">VALIDATE_SYSTEM_INTEGRITY</button>
-                    </div>
-                </div>
-
-                <!-- Freelance: TridentArc — Textile Full-Stack Web App -->
-                <div class="magnetic-tilt-surface" style="border:1px solid rgba(255,255,255,0.06);padding:2rem;background:#0c0f0f;border-radius:0;margin-top:2rem;">
-                    <div class="magnetic-inner">
-                        <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;">
-                            <span class="material-symbols-outlined" style="color:#00FFAA;font-size:2.5rem;">deployed_code</span>
-                            <div>
-                                <h4 class="crypto-text" data-crypto="Textile Industry Full-Stack Platform"
-                                    style="font-family:'Anybody',sans-serif;font-size:1.1rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;">
-                                    Textile Industry Full-Stack Platform
-                                </h4>
-                                <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8f9194;text-transform:uppercase;letter-spacing:0.1em;">REACT VITE // DJANGO // ADMIN PANEL</p>
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;">
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#00FFAA;border:1px solid rgba(0,255,170,0.3);padding:0.2rem 0.6rem;text-transform:uppercase;">FREELANCE</span>
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#c5c6c9;text-transform:uppercase;">CLIENT // TRIDENTARC</span>
-                        </div>
-                        <p style="font-family:'Geist',sans-serif;font-size:0.83rem;color:#c5c6c9;line-height:1.55;margin-bottom:1.5rem;">
-                            Delivered a production full-stack web application for a fabric manufacturing client via TridentArc. Built a React Vite frontend with a hero page, products catalogue, and blog — backed by a Django REST API. Migrated contact-form submissions to the backend and provisioned the Django Admin panel for the client to manage incoming data without engineering access.
-                        </p>
-                        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#00FFAA;background:#000c05;padding:0.2rem 0.6rem;border:1px solid rgba(0,255,170,0.15);text-transform:uppercase;">React Vite</span>
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8f9194;background:rgba(255,255,255,0.04);padding:0.2rem 0.6rem;text-transform:uppercase;">Django</span>
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8f9194;background:rgba(255,255,255,0.04);padding:0.2rem 0.6rem;text-transform:uppercase;">REST API</span>
-                            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8f9194;background:rgba(255,255,255,0.04);padding:0.2rem 0.6rem;text-transform:uppercase;">Admin Panel</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h3 class="crypto-text disp" data-crypto="Migration Readiness Simulation" style="font-size:1.2rem;margin-top:.75rem">Migration Readiness Simulation</h3>
+        <p style="font-size:.82rem;color:var(--soft);line-height:1.5;margin-top:.5rem">Predictive engine that scores workforce migration readiness using CatBoost classification, served through a full-stack React + Django platform with real-time risk profiling.</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1rem;flex-wrap:wrap;gap:.5rem">
+          <div class="mono neon" style="font-size:11px">CATBOOST // DJANGO // REACT</div>
+          <span class="chip dim" style="background:rgba(255,255,255,.04);padding:.2rem .6rem">ML_CLASSIFIER</span>
         </div>
+      </div>
+    </div>
 
-        <!-- Right: Credentials -->
-        <div class="grid-line-draw" style="padding:3rem 4rem;display:flex;flex-direction:column;gap:3rem;" id="benchmarks-right">
-            <span class="crypto-text" data-crypto="CREDENTIAL_LOGS"
-                style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8f9194;text-transform:uppercase;">
-                CREDENTIAL_LOGS
-            </span>
-            <div class="bento-assemble" style="display:flex;flex-direction:column;gap:2rem;">
-                <!-- NPTEL -->
-                <div class="magnetic-tilt-surface"
-                    style="display:flex;align-items:flex-start;gap:1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:2rem;padding:1rem;border-radius:0;">
-                    <div class="magnetic-inner" style="display:flex;gap:1.5rem;align-items:flex-start;">
-                        <div class="credential-badge" style="background:#00FFAA;color:#08090A;">NP</div>
-                        <div>
-                            <h4 class="crypto-text" data-crypto="NPTEL Python for Data Science"
-                                style="font-family:'Anybody',sans-serif;font-size:1.1rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:0.25rem;">
-                                NPTEL Python for Data Science
-                            </h4>
-                            <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#8f9194;text-transform:uppercase;">ELITE + SILVER CERTIFICATION</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- HackerRank -->
-                <div class="magnetic-tilt-surface"
-                    style="display:flex;align-items:flex-start;gap:1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:2rem;padding:1rem;border-radius:0;">
-                    <div class="magnetic-inner" style="display:flex;gap:1.5rem;align-items:flex-start;">
-                        <div class="credential-badge" style="border:1px solid #00FFAA;color:#00FFAA;">HR</div>
-                        <div>
-                            <h4 class="crypto-text" data-crypto="HackerRank Assessments"
-                                style="font-family:'Anybody',sans-serif;font-size:1.1rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:0.25rem;">
-                                HackerRank Assessments
-                            </h4>
-                            <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#8f9194;text-transform:uppercase;">10+ SKILL VERIFICATIONS (PYTHON, JAVA, SQL)</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Skill Craft -->
-                <div class="magnetic-tilt-surface"
-                    style="display:flex;align-items:flex-start;gap:1.5rem;padding:1rem;border-radius:0;">
-                    <div class="magnetic-inner" style="display:flex;gap:1.5rem;align-items:flex-start;">
-                        <div class="credential-badge" style="background:rgba(255,255,255,0.06);color:#e2e2e2;">SC</div>
-                        <div>
-                            <h4 class="crypto-text" data-crypto="Skill Craft Technology"
-                                style="font-family:'Anybody',sans-serif;font-size:1.1rem;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:0.25rem;">
-                                Skill Craft Technology
-                            </h4>
-                            <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#8f9194;text-transform:uppercase;">TECHNICAL INTERNSHIP // DATA SYSTEMS</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="grid-line-draw magnetic-tilt-surface spot pcard sm" style="grid-column:span 2;border-right:none">
+      <div class="bento-assemble inner">
+        <span class="lbl dim">PARSE_04</span>
+        <h3 class="crypto-text disp" data-crypto="NLP Resume Parsing System" style="font-size:1.2rem">NLP Resume Parsing System</h3>
+        <div class="mono neon" style="font-size:11px">SPA_CY // REGEX // FASTAPI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 BENCHMARKS -->
+<section id="benchmarks" class="reveal-section">
+  <div id="benchmarks-left" class="grid-line-draw">
+    <div class="bento-assemble">
+      <span class="crypto-text lbl neon" data-crypto="MODULE_04" style="display:block;margin-bottom:.5rem">MODULE_04</span>
+      <h2 class="crypto-text h2" data-crypto="SYSTEM_BENCHMARKS" style="margin-bottom:3rem">SYSTEM_BENCHMARKS</h2>
+
+      <div>
+        <h3 class="bignum" data-count="350" data-suffix="+">350+</h3>
+        <p class="lbl dim" style="margin-bottom:1.5rem">Algorithmic Problems Solved</p>
+        <div class="barwrap"><div class="bar-fill"></div></div>
+      </div>
+
+      <div class="research">
+        <div class="flag lbl neon">Researcher Phase</div>
+        <div style="display:flex;align-items:flex-start;gap:1rem">
+          <span class="material-symbols-outlined neon" style="font-size:2rem;margin-top:.25rem">science</span>
+          <div>
+            <h4 class="crypto-text disp" data-crypto="Primary Academic Milestone" style="font-size:1.2rem;margin-bottom:.5rem">Primary Academic Milestone</h4>
+            <p style="font-size:.9rem;color:var(--fg);line-height:1.5">First-author research contribution: Proposed identity-aware deepfake detection framework <span class="mono neon" style="font-weight:700">(83.6% accuracy)</span></p>
+          </div>
         </div>
+      </div>
 
-    </section>
-    <style>
-        @media (min-width: 1024px) {
-            #benchmarks { grid-template-columns: 1fr 1fr !important; }
-            #benchmarks-right { border-left: none; }
-        }
-        @media (max-width: 1023px) {
-            #benchmarks-left { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        }
-    </style>
-
-    <!-- ==========================================
-         SECTION 05: INTERFACE (CONTACT)
-    =========================================== -->
-    <section id="interface" class="reveal-section"
-        style="min-height:100vh;border:1px solid rgba(255,255,255,0.06);border-top:none;border-left:none;padding:4rem;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;">
-
-        <div style="max-width:48rem;width:100%;" class="bento-assemble">
-            <span class="crypto-text" data-crypto="MODULE_05"
-                style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#00FFAA;text-transform:uppercase;display:block;text-align:center;margin-bottom:0.5rem;">
-                MODULE_05
-            </span>
-            <h2 class="crypto-text" data-crypto="INTERFACE_HANDSHAKE"
-                style="font-family:'Anybody',sans-serif;font-size:clamp(32px,6vw,72px);font-weight:800;text-transform:uppercase;text-align:center;letter-spacing:-0.02em;margin-bottom:4rem;line-height:1;">
-                INTERFACE_HANDSHAKE
-            </h2>
-
-            <form action="https://formsubmit.co/sakthishriram12156@gmail.com" method="POST"
-                style="display:flex;flex-direction:column;gap:3rem;">
-                <!-- FormSubmit config — no captcha, custom redirect back to page -->
-                <input type="hidden" name="_captcha" value="false"/>
-                <input type="hidden" name="_subject" value="[PORTFOLIO] New INTERFACE_HANDSHAKE Initiated"/>
-                <input type="hidden" name="_template" value="box"/>
-                <!-- Name Field -->
-                <div style="position:relative;">
-                    <input class="cli-input" type="text" id="name" name="name" required placeholder=" " autocomplete="off" style="background:transparent;background-color:transparent;"/>
-                    <label class="cli-label" for="name">RECIPIENT_NAME</label>
-                    <div style="position:absolute;right:0;bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00FFAA;opacity:0;transition:opacity 0.3s;animation:pulse 2s infinite;" id="name-hint">_WAITING_FOR_INPUT</div>
-                </div>
-                <!-- Email Field -->
-                <div style="position:relative;">
-                    <input class="cli-input" type="email" id="email" name="email" required placeholder=" " autocomplete="off" style="background:transparent;background-color:transparent;"/>
-                    <label class="cli-label" for="email">RECIPIENT_EMAIL</label>
-                </div>
-                <!-- Message Field -->
-                <div style="position:relative;">
-                    <textarea class="cli-textarea" id="brief" name="message" required placeholder=" " rows="2"></textarea>
-                    <label class="cli-label" for="brief">PROJECT_SCOPE_BRIEF</label>
-                </div>
-                <!-- Submit Row -->
-                <div style="display:flex;flex-direction:column;gap:1.5rem;padding-top:1rem;" id="form-submit-row">
-                    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8f9194;text-transform:uppercase;line-height:1.6;">
-                        By submitting this handshake, you initiate a secure peer-to-peer data exchange protocol to sakthishriram12156@gmail.com.
-                    </p>
-                    <button class="btn-primary" type="submit" style="padding:1.25rem 3rem;font-size:11px;">
-                        INITIATE_UPLINK <span class="submit-arrow">→</span>
-                    </button>
-                </div>
-            </form>
+      <div class="magnetic-tilt-surface spot proj-mini">
+        <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem">
+          <span class="material-symbols-outlined neon" style="font-size:2.5rem">qr_code_2</span>
+          <div>
+            <h4 class="crypto-text disp" data-crypto="QR-Based Certificate Verification" style="font-size:1.1rem">QR-Based Certificate Verification</h4>
+            <p class="mono dim" style="font-size:11px;text-transform:uppercase;letter-spacing:.1em">SECURE HASHING // INSTANT AUTH</p>
+          </div>
         </div>
-    </section>
-    <style>
-        @media (min-width: 768px) {
-            #form-submit-row { flex-direction: row !important; align-items: center; justify-content: space-between; }
-            #form-submit-row p { max-width: 20rem; }
-        }
-        #name:focus ~ #name-hint, #name:not(:placeholder-shown) ~ #name-hint { opacity:1; }
-        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-        /* Textarea label fix for :not(:placeholder-shown) */
-        .cli-textarea:focus + .cli-label,
-        .cli-textarea:not(:placeholder-shown) + .cli-label { top:-1rem; color:#00FFAA; }
-    </style>
-
-    <!-- ==========================================
-         FOOTER
-    =========================================== -->
-    <footer class="reveal-section"
-        style="width:100%;padding:3rem 4rem;display:flex;flex-direction:column;gap:1.5rem;border-top:1px solid rgba(255,255,255,0.06);background:#0c0f0f;position:relative;z-index:10;">
-        <div style="display:flex;flex-direction:column;gap:1.5rem;" id="footer-inner">
-            <div class="bento-assemble" style="display:flex;gap:2rem;flex-wrap:wrap;">
-                <a class="footer-link" href="https://github.com/Sakthi0400J" target="_blank" rel="noopener">GITHUB</a>
-                <a class="footer-link" href="https://www.linkedin.com/in/sakthi-shriram-k-6a7410292/" target="_blank" rel="noopener">LINKEDIN</a>
-                <a class="footer-link" href="mailto:sakthishriram12156@gmail.com">EMAIL_DIRECT</a>
-            </div>
-            <div class="bento-assemble" style="text-align:left;" id="footer-copy">
-                <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#8f9194;text-transform:uppercase;">Copyright © 2026 Sakthi Shriram K. All rights reserved.</p>
-                <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#00FFAA;opacity:0.4;margin-top:0.25rem;text-transform:uppercase;">[10.8251° N, 78.6946° E] // SYSTEM_STABLE</p>
-            </div>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+          <span class="chip neon" style="border:1px solid rgba(0,255,170,.3);padding:.2rem .6rem;letter-spacing:.15em">FREELANCE</span>
+          <span class="lbl" style="color:var(--soft);letter-spacing:.15em">CLIENT // SKILLZENTRA</span>
         </div>
-    </footer>
-    <style>
-        @media (min-width: 768px) {
-            #footer-inner { flex-direction: row !important; justify-content: space-between; align-items: center; }
-            #footer-copy { text-align: right !important; }
-        }
-    </style>
+        <p style="font-size:.83rem;color:var(--soft);line-height:1.55;margin-bottom:1.5rem">Engineered a tamper-proof certificate issuance and verification platform for SkillZentra. Each certificate embeds a unique QR code backed by secure hashing — any verifier can authenticate credentials instantly via scan, eliminating forgery.</p>
+        <button class="btn-ghost mag" style="width:100%">VALIDATE_SYSTEM_INTEGRITY</button>
+      </div>
+
+      <div class="magnetic-tilt-surface spot proj-mini">
+        <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem">
+          <span class="material-symbols-outlined neon" style="font-size:2.5rem">deployed_code</span>
+          <div>
+            <h4 class="crypto-text disp" data-crypto="Textile Industry Full-Stack Platform" style="font-size:1.1rem">Textile Industry Full-Stack Platform</h4>
+            <p class="mono dim" style="font-size:11px;text-transform:uppercase;letter-spacing:.1em">REACT VITE // DJANGO // ADMIN PANEL</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+          <span class="chip neon" style="border:1px solid rgba(0,255,170,.3);padding:.2rem .6rem;letter-spacing:.15em">FREELANCE</span>
+          <span class="lbl" style="color:var(--soft);letter-spacing:.15em">CLIENT // TRIDENTARC</span>
+        </div>
+        <p style="font-size:.83rem;color:var(--soft);line-height:1.55;margin-bottom:1.5rem">Delivered a production full-stack web application for a fabric manufacturing client via TridentArc. Built a React Vite frontend with a hero page, products catalogue, and blog — backed by a Django REST API. Migrated contact-form submissions to the backend and provisioned the Django Admin panel for the client to manage incoming data without engineering access.</p>
+        <div class="pills"><span class="hot">React Vite</span><span>Django</span><span>REST API</span><span>Admin Panel</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="benchmarks-right" class="grid-line-draw">
+    <span class="crypto-text lbl dim" data-crypto="CREDENTIAL_LOGS">CREDENTIAL_LOGS</span>
+    <div class="bento-assemble" style="display:flex;flex-direction:column;gap:1.25rem">
+      <div class="magnetic-tilt-surface spot cred">
+        <div class="credential-badge" style="background:var(--neon);color:var(--bg);box-shadow:0 0 24px rgba(0,255,170,.4)">NP</div>
+        <div>
+          <h4 class="crypto-text disp" data-crypto="NPTEL Python for Data Science" style="font-size:1.1rem;margin-bottom:.25rem">NPTEL Python for Data Science</h4>
+          <p class="lbl dim" style="letter-spacing:.15em">ELITE + SILVER CERTIFICATION</p>
+        </div>
+      </div>
+      <div class="magnetic-tilt-surface spot cred">
+        <div class="credential-badge" style="border:1px solid var(--neon);color:var(--neon)">HR</div>
+        <div>
+          <h4 class="crypto-text disp" data-crypto="HackerRank Assessments" style="font-size:1.1rem;margin-bottom:.25rem">HackerRank Assessments</h4>
+          <p class="lbl dim" style="letter-spacing:.15em">10+ SKILL VERIFICATIONS (PYTHON, JAVA, SQL)</p>
+        </div>
+      </div>
+      <div class="magnetic-tilt-surface spot cred">
+        <div class="credential-badge" style="background:rgba(255,255,255,.06);color:var(--fg)">SC</div>
+        <div>
+          <h4 class="crypto-text disp" data-crypto="Skill Craft Technology" style="font-size:1.1rem;margin-bottom:.25rem">Skill Craft Technology</h4>
+          <p class="lbl dim" style="letter-spacing:.15em">TECHNICAL INTERNSHIP // DATA SYSTEMS</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 INTERFACE -->
+<section id="interface" class="reveal-section">
+  <div class="form-wrap bento-assemble">
+    <span class="crypto-text lbl neon" data-crypto="MODULE_05" style="display:block;text-align:center;margin-bottom:.5rem">MODULE_05</span>
+    <h2 class="crypto-text disp" data-crypto="INTERFACE_HANDSHAKE" style="font-size:clamp(32px,6vw,72px);text-align:center;letter-spacing:-.02em;margin-bottom:3rem;line-height:1">INTERFACE_HANDSHAKE</h2>
+
+    <div class="form-box">
+      <form id="contact-form" action="https://formsubmit.co/sakthishriram12156@gmail.com" method="POST" style="display:flex;flex-direction:column;gap:3rem">
+        <input type="hidden" name="_captcha" value="false"/>
+        <input type="hidden" name="_subject" value="[PORTFOLIO] New INTERFACE_HANDSHAKE Initiated"/>
+        <input type="hidden" name="_template" value="box"/>
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off"/>
+        <div class="field">
+          <input class="cli-input" type="text" id="name" name="name" required placeholder=" " autocomplete="off"/>
+          <label class="cli-label" for="name">RECIPIENT_NAME</label>
+          <div id="name-hint">_WAITING_FOR_INPUT</div>
+        </div>
+        <div class="field">
+          <input class="cli-input" type="email" id="email" name="email" required placeholder=" " autocomplete="off"/>
+          <label class="cli-label" for="email">RECIPIENT_EMAIL</label>
+        </div>
+        <div class="field">
+          <textarea class="cli-textarea" id="brief" name="message" required placeholder=" " rows="2"></textarea>
+          <label class="cli-label" for="brief">PROJECT_SCOPE_BRIEF</label>
+        </div>
+        <div id="form-submit-row">
+          <p class="mono dim" style="font-size:11px;text-transform:uppercase;line-height:1.6">By submitting this handshake, you initiate a secure peer-to-peer data exchange protocol to sakthishriram12156@gmail.com.</p>
+          <button class="btn-primary mag" type="submit" style="padding:1.25rem 3rem;font-size:11px">INITIATE_UPLINK <span class="submit-arrow">→</span></button>
+        </div>
+        <p id="form-status" class="mono" style="font-size:11px;text-transform:uppercase;letter-spacing:.15em;min-height:1.2em"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="reveal-section">
+  <div id="footer-inner">
+    <div class="bento-assemble" style="display:flex;gap:2rem;flex-wrap:wrap">
+      <a class="footer-link" href="https://github.com/Sakthi0400J" target="_blank" rel="noopener">GITHUB</a>
+      <a class="footer-link" href="https://www.linkedin.com/in/sakthi-shriram-k-6a7410292/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a class="footer-link" href="mailto:sakthishriram12156@gmail.com">EMAIL_DIRECT</a>
+    </div>
+    <div class="bento-assemble" id="footer-copy">
+      <p class="lbl dim" style="letter-spacing:.15em">Copyright © 2026 Sakthi Shriram K. All rights reserved.</p>
+      <p class="lbl neon" style="letter-spacing:.15em;opacity:.45;margin-top:.25rem">[10.8251° N, 78.6946° E] // SYSTEM_STABLE</p>
+    </div>
+  </div>
+</footer>
 
 </main>
-</div><!-- #smooth-content -->
-</div><!-- #smooth-wrapper -->
+</div>
+</div>
 
-<!-- =============================================
-     SCRIPTS
-============================================= -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const fine=matchMedia('(pointer:fine)').matches;
+const sc=$('#smooth-content');
+let cur=0, vel=0, mouseX=0, mouseY=0, nx=0, ny=0;
 
-/* ==============================================
-   1. INERTIAL SMOOTH SCROLL — CORRECT PATTERN
-   - body height = smooth-content height (virtual scroll)
-   - window scrolls normally, content translates
-   ============================================= */
-let scrollCurrent = 0;
-let scrollTarget = 0;
-const EASE = 0.09;
-const smoothContent = document.getElementById('smooth-content');
+/* ---------- smooth scroll ---------- */
+const setH=()=>{document.body.style.height=sc.scrollHeight+'px'};
+const progress=$('#progress');
+(function loop(){
+  const t=scrollY, prev=cur;
+  cur+=(t-cur)*.085;
+  if(Math.abs(t-cur)<.05)cur=t;
+  vel=cur-prev;
+  sc.style.transform=`translate3d(0,${(-cur).toFixed(2)}px,0)`;
+  const max=document.body.scrollHeight-innerHeight;
+  progress.style.transform=`scaleX(${max>0?t/max:0})`;
+  requestAnimationFrame(loop);
+})();
+addEventListener('load',setH);
+addEventListener('resize',setH);
+if(window.ResizeObserver)new ResizeObserver(setH).observe(sc);
+const topOf=el=>el.getBoundingClientRect().top+cur;
 
-function lerp(a, b, t) { return a * (1 - t) + b * t; }
-
-function syncBodyHeight() {
-    document.body.style.height = smoothContent.scrollHeight + 'px';
-}
-
-function smoothScrollLoop() {
-    scrollTarget = window.scrollY;
-    scrollCurrent = lerp(scrollCurrent, scrollTarget, EASE);
-    if (Math.abs(scrollTarget - scrollCurrent) < 0.1) scrollCurrent = scrollTarget;
-    smoothContent.style.transform = `translate3d(0, -${scrollCurrent}px, 0)`;
-    requestAnimationFrame(smoothScrollLoop);
-}
-
-window.addEventListener('load', () => {
-    syncBodyHeight();
-    smoothScrollLoop();
+/* ---------- aura ---------- */
+let ax=innerWidth/2, ay=innerHeight/2;
+addEventListener('mousemove',e=>{
+  mouseX=e.clientX; mouseY=e.clientY;
+  nx=(e.clientX/innerWidth-.5)*2; ny=(e.clientY/innerHeight-.5)*2;
 });
-window.addEventListener('resize', syncBodyHeight);
-
-/* Use ResizeObserver to keep body height in sync if content height changes */
-if (window.ResizeObserver) {
-    new ResizeObserver(syncBodyHeight).observe(smoothContent);
-}
-
-/* ==============================================
-   2. PARTICLE SYSTEM
-   ============================================= */
-(function initParticleSystem() {
-    const canvas = document.getElementById('particle-system');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-        constructor() { this.reset(); }
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 8 + 4;
-            this.speedX = (Math.random() - 0.5) * 0.25;
-            this.speedY = (Math.random() - 0.5) * 0.25;
-            this.baseOpacity = Math.random() * 0.12 + 0.08;
-            this.pulsePhase = Math.random() * Math.PI * 2;
-            this.pulseSpeed = 0.01 + Math.random() * 0.02;
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            this.pulsePhase += this.pulseSpeed;
-            if (this.x < -50 || this.x > canvas.width + 50 || this.y < -50 || this.y > canvas.height + 50) this.reset();
-        }
-        draw() {
-            const alpha = this.baseOpacity * (0.7 + 0.3 * Math.sin(this.pulsePhase));
-            ctx.strokeStyle = `rgba(0, 255, 170, ${alpha})`;
-            ctx.fillStyle = `rgba(0, 255, 170, ${alpha * 0.2})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.rect(this.x, this.y, this.size, this.size);
-            ctx.fill();
-            ctx.stroke();
-        }
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', resize);
-    resize();
-    for (let i = 0; i < 60; i++) particles.push(new Particle());
-    animate();
+(function cl(){
+  ax+=(mouseX-ax)*.06; ay+=(mouseY-ay)*.06;
+  document.documentElement.style.setProperty('--mx',ax+'px');
+  document.documentElement.style.setProperty('--my',ay+'px');
+  requestAnimationFrame(cl);
 })();
 
-/* ==============================================
-   3. CRYPTOGRAPHIC TYPING EFFECT
-   ============================================= */
-function cryptoTypeEffect(element) {
-    if (element.dataset.typing === 'true') return;
-    element.dataset.typing = 'true';
-    element.classList.add('active', 'cursor');
-
-    const finalContent = element.getAttribute('data-crypto');
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_/@$#| ';
-    let iterations = 0;
-
-    const interval = setInterval(() => {
-        element.innerText = finalContent.split('').map((char, index) => {
-            if (index < iterations) return finalContent[index];
-            return chars[Math.floor(Math.random() * chars.length)];
-        }).join('');
-
-        if (iterations >= finalContent.length) {
-            clearInterval(interval);
-            element.classList.remove('cursor');
-        }
-        iterations += 1 / 3;
-    }, 30);
-}
-
-/* ==============================================
-   4. INTERSECTION OBSERVER — GRID ASSEMBLY
-   ============================================= */
-
-// ─────────────────────────────────────────────
-// TIMING CONTROL — adjust these two values:
-//
-//   HERO_TEXT_DELAY_MS  : gap (ms) between the
-//     tesseract appearing and the hero text
-//     starting to type. Increase to add more
-//     "breathe" time after the cube pops up.
-//     Default was 200 (almost instant).
-//
-//   SECTION_REVEAL_DELAY_MS : same delay for
-//     every other section (skills, projects…)
-//     when they scroll into view.
-// ─────────────────────────────────────────────
-const HERO_TEXT_DELAY_MS    = 900;  // ← CHANGE THIS for hero intro gap
-const SECTION_REVEAL_DELAY_MS = 200; // ← CHANGE THIS for other sections
-
-const assemblyObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const section = entry.target;
-        section.classList.add('active');
-
-        // Activate particle system on first reveal
-        document.getElementById('particle-system').classList.add('active');
-
-        // Use a longer delay for the hero/index section, normal for the rest
-        const isHero = section.id === 'index';
-        const revealDelay = isHero ? HERO_TEXT_DELAY_MS : SECTION_REVEAL_DELAY_MS;
-
-        setTimeout(() => {
-            section.querySelectorAll('.bento-assemble').forEach((el, i) => {
-                setTimeout(() => el.classList.add('active'), i * 150);
-            });
-            section.querySelectorAll('.crypto-text').forEach((el, i) => {
-                setTimeout(() => cryptoTypeEffect(el), 300 + (i * 100));
-            });
-            section.querySelectorAll('.skill-row').forEach((el, i) => {
-                setTimeout(() => el.classList.add('active'), 500 + (i * 60));
-            });
-        }, revealDelay);
-
-        assemblyObserver.unobserve(section); // Only trigger once
-    });
-}, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.reveal-section').forEach(el => assemblyObserver.observe(el));
-
-/* ==============================================
-   5. MAGNETIC TILT — 3D Card Effect
-   ============================================= */
-document.querySelectorAll('.magnetic-tilt-surface').forEach(surface => {
-    surface.addEventListener('mousemove', (e) => {
-        const rect = surface.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rx = (y - cy) / 18;
-        const ry = (cx - x) / 18;
-        surface.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.01,1.01,1.01)`;
-    });
-    surface.addEventListener('mouseleave', () => {
-        surface.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
-    });
-});
-
-/* ==============================================
-   6. THREE.JS TESSERACT
-   ============================================= */
-(function initTesseract() {
-    const canvas = document.getElementById('canvas-tesseract-stage');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const group = new THREE.Group();
-    const lineMat = new THREE.LineBasicMaterial({ color: 0x00FFAA, transparent: true, opacity: 0.22 });
-
-    function wireBox(size) {
-        const h = size / 2;
-        const verts = new Float32Array([
-            -h, h, h,  h, h, h,   h, h, h,   h,-h, h,   h,-h, h,  -h,-h, h,  -h,-h, h,  -h, h, h,
-            -h, h,-h,  h, h,-h,   h, h,-h,   h,-h,-h,   h,-h,-h,  -h,-h,-h,  -h,-h,-h,  -h, h,-h,
-            -h, h, h,  -h, h,-h,  h, h, h,   h, h,-h,   h,-h, h,   h,-h,-h,  -h,-h, h,  -h,-h,-h
-        ]);
-        const geom = new THREE.BufferGeometry();
-        geom.setAttribute('position', new THREE.BufferAttribute(verts, 3));
-        return new THREE.LineSegments(geom, lineMat);
-    }
-
-    group.add(wireBox(160));
-    group.add(wireBox(70));
-
-    // Connectors
-    const hO = 80, hI = 35;
-    const pts = [[1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],[-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1]];
-    const connVerts = [];
-    pts.forEach(p => connVerts.push(p[0]*hO, p[1]*hO, p[2]*hO, p[0]*hI, p[1]*hI, p[2]*hI));
-    const connGeom = new THREE.BufferGeometry();
-    connGeom.setAttribute('position', new THREE.BufferAttribute(new Float32Array(connVerts), 3));
-    group.add(new THREE.LineSegments(connGeom, lineMat));
-
-    scene.add(group);
-    camera.position.z = 600;
-
-    const targetPos = new THREE.Vector3();
-    const targetScale = new THREE.Vector3(1, 1, 1);
-
-    function animate() {
-        requestAnimationFrame(animate);
-        group.rotation.y += 0.002;
-        group.rotation.x += 0.0012;
-        group.rotation.z += 0.0005;
-
-        const scrollY = window.scrollY;
-        const docH = document.body.scrollHeight - window.innerHeight;
-        const scrollPct = docH > 0 ? scrollY / docH : 0;
-        const s = 1 + scrollPct * 0.45;
-        targetScale.set(s, s, s);
-        group.scale.lerp(targetScale, 0.1);
-
-        const skillsTop = document.getElementById('skills').offsetTop;
-        const apparatusTop = document.getElementById('apparatus').offsetTop;
-
-        if (scrollY > apparatusTop - 200) {
-            targetPos.set(0, 0, 0);
-        } else if (scrollY > skillsTop - 200) {
-            targetPos.set(window.innerWidth * 0.12, -40, 0);
-        } else {
-            targetPos.set(0, 80, 0);
-        }
-        group.position.lerp(targetPos, 0.05);
-
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        syncBodyHeight();
-    });
+/* ---------- particles ---------- */
+(function(){
+  const c=$('#particle-system'),x=c.getContext('2d');let P=[];
+  const rs=()=>{c.width=innerWidth;c.height=innerHeight};
+  class Pt{constructor(){this.r()}
+    r(){this.x=Math.random()*c.width;this.y=Math.random()*c.height;this.s=Math.random()*8+4;this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.25;this.o=Math.random()*.12+.08;this.p=Math.random()*6.28;this.ps=.01+Math.random()*.02;this.rot=Math.random()*3;this.rv=(Math.random()-.5)*.01}
+    u(){this.x+=this.vx-vel*.02*0;this.y+=this.vy-vel*.15;this.p+=this.ps;this.rot+=this.rv;
+      const dx=this.x-mouseX,dy=this.y-mouseY,d=dx*dx+dy*dy;if(d<22500){const f=(1-d/22500)*.6;this.x+=dx*f*.05;this.y+=dy*f*.05}
+      if(this.x<-50||this.x>c.width+50||this.y<-50||this.y>c.height+50)this.r()}
+    d(){const a=this.o*(.7+.3*Math.sin(this.p));x.save();x.translate(this.x+this.s/2,this.y+this.s/2);x.rotate(this.rot);
+      x.strokeStyle=`rgba(0,255,170,${a})`;x.fillStyle=`rgba(0,255,170,${a*.2})`;x.lineWidth=1;x.beginPath();x.rect(-this.s/2,-this.s/2,this.s,this.s);x.fill();x.stroke();x.restore()}}
+  addEventListener('resize',rs);rs();for(let i=0;i<70;i++)P.push(new Pt);
+  (function a(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.u();p.d()});requestAnimationFrame(a)})();
 })();
 
-/* ==============================================
-   7. NAVIGATION — Active State + Smooth Scroll
-   ============================================= */
-const sections = document.querySelectorAll('section[id], footer');
-const navLinks = document.querySelectorAll('.nav-link');
-
-window.addEventListener('scroll', () => {
-    const fromTop = window.scrollY + 120;
-    // Find active section (uses offsetTop against smooth-content's DOM position)
-    sections.forEach(sec => {
-        // Need to account for the smooth-content translateY
-        const secTop = sec.offsetTop;
-        const secBottom = secTop + sec.offsetHeight;
-        if (secTop <= fromTop && secBottom > fromTop) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sec.id}`) link.classList.add('active');
-            });
-        }
-    });
-});
-
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-            window.scrollTo({ top: target.offsetTop - 64, behavior: 'smooth' });
-        }
-    });
-});
-
-/* ==============================================
-   8. FORM — Input hints
-   ============================================= */
-const nameInput = document.getElementById('name');
-const nameHint = document.getElementById('name-hint');
-if (nameInput && nameHint) {
-    nameInput.addEventListener('focus', () => { nameHint.style.opacity = '1'; });
-    nameInput.addEventListener('blur', () => { nameHint.style.opacity = '0'; });
+/* ---------- crypto typing + counters ---------- */
+function crypto(el){
+  if(el.dataset.typing==='true')return;el.dataset.typing='true';
+  el.classList.add('active','cursor');
+  const fin=el.getAttribute('data-crypto'),ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_/@$#| ';let it=0;
+  const iv=setInterval(()=>{
+    el.innerText=[...fin].map((c,i)=>i<it?fin[i]:ch[Math.floor(Math.random()*ch.length)]).join('');
+    if(it>=fin.length){clearInterval(iv);el.innerText=fin;el.classList.remove('cursor')}
+    it+=1/3;
+  },30);
+}
+function count(el){
+  el.classList.add('active');
+  const end=+el.dataset.count,suf=el.dataset.suffix||'',t0=performance.now(),D=1800;
+  (function s(n){const p=Math.min((n-t0)/D,1),e=1-Math.pow(1-p,4);el.textContent=Math.round(end*e)+suf;if(p<1)requestAnimationFrame(s)})(t0);
 }
 
+/* ---------- reveal ---------- */
+const HERO_DELAY=900,SEC_DELAY=200;
+const obs=new IntersectionObserver(es=>{es.forEach(en=>{
+  if(!en.isIntersecting)return;
+  const s=en.target;s.classList.add('active');
+  $('#particle-system').classList.add('active');
+  const d=s.id==='index'?HERO_DELAY:SEC_DELAY;
+  setTimeout(()=>{
+    $$('.bento-assemble',s).forEach((el,i)=>setTimeout(()=>el.classList.add('active'),i*150));
+    $$('.crypto-text',s).forEach((el,i)=>setTimeout(()=>crypto(el),300+i*100));
+    $$('.skill-row',s).forEach((el,i)=>setTimeout(()=>el.classList.add('active'),500+i*60));
+    $$('[data-count]',s).forEach(el=>setTimeout(()=>count(el),700));
+  },d);
+  obs.unobserve(s);
+})},{threshold:.05,rootMargin:'0px 0px -50px 0px'});
+function boot(){
+  $('#loader').classList.add('done');
+  setTimeout(()=>$$('.reveal-section').forEach(el=>obs.observe(el)),500);
+}
+addEventListener('load',()=>setTimeout(boot,1250));
+
+/* ---------- tilt + spotlight + magnetic ---------- */
+$$('.magnetic-tilt-surface').forEach(el=>{
+  el.addEventListener('mousemove',e=>{
+    const r=el.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    el.style.setProperty('--sx',x+'px');el.style.setProperty('--sy',y+'px');
+    const rx=(y-r.height/2)/22,ry=(r.width/2-x)/22;
+    el.style.transform=`perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.01,1.01,1.01)`;
+  });
+  el.addEventListener('mouseleave',()=>{el.style.transform='perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)'});
+});
+$$('.mag').forEach(b=>{
+  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.35}px)`});
+  b.addEventListener('mouseleave',()=>{b.style.transform=''});
+});
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>scrollTo({top:topOf($(b.dataset.go))-64,behavior:'smooth'})));
+
+/* ---------- navigation ---------- */
+const secs=$$('section[id]'),links=$$('.nav-link'),dots=$$('#dots a');
+addEventListener('scroll',()=>{
+  const y=scrollY+innerHeight*.35;
+  secs.forEach((s,i)=>{
+    const t=topOf(s)-(cur-scrollY)*0, a=t,b=t+s.offsetHeight;
+    const abs=s.offsetTop;
+    const top=a, bottom=b;
+    const pos=top+ (scrollY-cur)*0;
+    if(abs<=y&&abs+s.offsetHeight>y){
+      links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+s.id));
+      dots.forEach(d=>d.classList.toggle('active',d.getAttribute('href')==='#'+s.id));
+    }
+  });
+});
+[...links,...dots].forEach(l=>l.addEventListener('click',e=>{
+  e.preventDefault();const t=$(l.getAttribute('href'));
+  if(t)scrollTo({top:t.offsetTop-64+(t.id==='index'?64:0),behavior:'smooth'});
+}));
+
+/* ---------- 4D tesseract ---------- */
+(function(){
+  const canvas=$('#canvas-tesseract-stage');
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,.1,3000);cam.position.z=600;
+  const rd=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  rd.setPixelRatio(Math.min(devicePixelRatio,2));rd.setSize(innerWidth,innerHeight);
+
+  const V=[];for(let i=0;i<16;i++)V.push([i&1?1:-1,i&2?1:-1,i&4?1:-1,i&8?1:-1]);
+  const E=[];for(let i=0;i<16;i++)for(let b=0;b<4;b++){const j=i^(1<<b);if(i<j)E.push([i,j])}
+  const lp=new Float32Array(E.length*6),pp=new Float32Array(16*3);
+  const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.BufferAttribute(lp,3));
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+  const lm=new THREE.LineBasicMaterial({color:0x00ffaa,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false});
+  const pm=new THREE.PointsMaterial({color:0xaaffe0,size:5,sizeAttenuation:false,transparent:true,opacity:.95,blending:THREE.AdditiveBlending,depthWrite:false});
+
+  const group=new THREE.Group();
+  const outer=new THREE.Group();outer.add(new THREE.LineSegments(lg,lm),new THREE.Points(pg,pm));
+  const inner=new THREE.Group();inner.add(new THREE.LineSegments(lg,lm.clone()),new THREE.Points(pg,pm));
+  inner.children[0].material.opacity=.3;inner.scale.setScalar(.42);
+  group.add(outer,inner);scene.add(group);
+
+  const N=700,sp=new Float32Array(N*3);
+  for(let i=0;i<N;i++){const r=500+Math.random()*900,t=Math.random()*6.283,p=Math.acos(2*Math.random()-1);sp[i*3]=r*Math.sin(p)*Math.cos(t);sp[i*3+1]=r*Math.sin(p)*Math.sin(t);sp[i*3+2]=r*Math.cos(p)-300}
+  const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.BufferAttribute(sp,3));
+  const stars=new THREE.Points(sg,new THREE.PointsMaterial({color:0x7fffd4,size:1.6,sizeAttenuation:false,transparent:true,opacity:.45,blending:THREE.AdditiveBlending,depthWrite:false}));
+  scene.add(stars);
+
+  const rot=(v,i,j,t)=>{const c=Math.cos(t),s=Math.sin(t),a=v[i],b=v[j];v[i]=a*c-b*s;v[j]=a*s+b*c};
+  const S=150,D=3;let t=0,boost=0,tp=new THREE.Vector3(),ts=new THREE.Vector3(1,1,1),mx=0,my=0;
+
+  function upd(t){
+    const P=V.map(v=>{const q=v.slice();rot(q,0,3,t*.55);rot(q,1,3,t*.4);rot(q,2,3,t*.3);rot(q,0,1,t*.15);const k=1/(D-q[3]);return[q[0]*k*S,q[1]*k*S,q[2]*k*S]});
+    E.forEach(([a,b],i)=>{lp.set(P[a],i*6);lp.set(P[b],i*6+3)});
+    P.forEach((p,i)=>pp.set(p,i*3));
+    lg.attributes.position.needsUpdate=true;pg.attributes.position.needsUpdate=true;
+  }
+  function anim(){
+    requestAnimationFrame(anim);
+    boost+=(Math.min(Math.abs(vel)*.004,.05)-boost)*.1;
+    t+=.006+boost;upd(t);inner.rotation.y-=.004;inner.rotation.x+=.003;
+    mx+=(nx-mx)*.04;my+=(ny-my)*.04;
+    group.rotation.y=t*.25+mx*.5;group.rotation.x=t*.15+my*.4;
+    stars.rotation.y=t*.03+mx*.06;stars.rotation.x=my*.04;
+    const y=scrollY,doc=document.body.scrollHeight-innerHeight,pct=doc>0?y/doc:0,s=1+pct*.45;
+    ts.set(s,s,s);group.scale.lerp(ts,.1);
+    const st=topOf($('#skills'))+cur-cur, sk=$('#skills').offsetTop, ap=$('#apparatus').offsetTop;
+    if(y>ap-200)tp.set(0,0,0);else if(y>sk-200)tp.set(innerWidth*.12,-40,0);else tp.set(0,80,0);
+    group.position.lerp(tp,.05);
+    rd.render(scene,cam);
+  }
+  anim();
+  addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();rd.setSize(innerWidth,innerHeight);setH()});
+})();
+
+/* ---------- form ---------- */
+(function(){
+  const f=$('#contact-form'),st=$('#form-status'),btn=$('button[type=submit]',f);
+  const say=(m,c)=>{st.textContent=m;st.style.color=c};
+  let native=false;
+  f.addEventListener('submit',async e=>{
+    if(native)return;
+    e.preventDefault();
+    btn.disabled=true;say('TRANSMITTING...','#00FFAA');
+    try{
+      const r=await fetch('https://formsubmit.co/ajax/sakthishriram12156@gmail.com',{
+        method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({name:f.name.value,email:f.email.value,message:f.message.value,_subject:'[PORTFOLIO] New INTERFACE_HANDSHAKE Initiated',_template:'box',_captcha:'false'})
+      });
+      const j=await r.json();
+      if(r.ok&&(j.success===true||j.success==='true')){say('UPLINK_ESTABLISHED // MESSAGE_SENT','#00FFAA');f.reset()}
+      else throw new Error(j.message||'fail');
+    }catch(err){
+      say('AJAX_FAILED // FALLING_BACK...','#ffb4ab');
+      native=true;f.submit();
+    }finally{btn.disabled=false}
+  });
+})();
 </script>
 </body>
 </html>
